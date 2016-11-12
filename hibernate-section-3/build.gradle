@@ -37,6 +37,7 @@ dependencies {
     compile 'mysql:mysql-connector-java:5.1.29'
 }
 
+//noinspection GroovyAssignabilityCheck
 jar {
     from {
         configurations.compile.collect {
