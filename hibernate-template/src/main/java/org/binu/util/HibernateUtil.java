@@ -1,4 +1,4 @@
-package util;
+package org.binu.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

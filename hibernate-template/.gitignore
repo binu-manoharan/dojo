@@ -2,3 +2,4 @@
 .idea
 gradle/wrapper/*
 build/*
+*.log
