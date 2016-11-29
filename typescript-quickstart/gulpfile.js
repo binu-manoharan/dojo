@@ -15,17 +15,16 @@ gulp.task("build", function() {
     return tsProject.src()
         .pipe(tsProject())
         .js.pipe(gulp.dest("dist"));
-   
-});
-
-gulp.task("copy-html", function() {
-    return gulp.src(paths.pages)
-        .pipe(gulp.dest("dist"));
 });
 
 gulp.task("printRunMessage", function() {
     return gutil.log('Running Gulp...')
 })
+
+gulp.task("copy-html", function() {
+    return gulp.src(paths.pages)
+        .pipe(gulp.dest("dist"));
+});
 
 gulp.task("default", ['printRunMessage', 'build', 'copy-html'], function() {
     return browserify({
@@ -39,5 +38,4 @@ gulp.task("default", ['printRunMessage', 'build', 'copy-html'], function() {
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest("dist"))
-
 });
