@@ -4,6 +4,9 @@ function hello(compiler: string) {
     console.log(`Hello from ${compiler} main.ts again`);
 }
 
-hello("Typescript");
+function showHello(divName: string, name: string) {
+    const elt = document.getElementById(divName);
+    elt.innerText = sayHello(name);
+}
 
-console.log(sayHello("Typescript"));
+showHello("greeting","Typescript");
