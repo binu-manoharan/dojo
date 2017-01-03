@@ -13,12 +13,17 @@ var paths = {
 };
 
 var watchedBrowserify = watchify(browserify({
-    basedir: '.',
-    debug: true,
-    entries: ['src/main.ts'],
-    cache: {},
-    packageCache: {}
-}).plugin(tsify));
+        basedir: '.',
+        debug: true,
+        entries: ['src/main.ts'],
+        cache: {},
+        packageCache: {}
+    }).plugin(tsify)
+    // .transform('babelify', {
+    //     presets: ['es2015'], 
+    //     extensions: ['.ts']
+    // })
+);
 
 gulp.task("copy-html", function() {
     return gulp.src(paths.pages)
@@ -31,7 +36,7 @@ function bundle() {
         .pipe(source('bundle.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist'));
 }
