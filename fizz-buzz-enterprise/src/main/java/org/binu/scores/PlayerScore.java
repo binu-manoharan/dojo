@@ -1,11 +1,14 @@
 package org.binu.scores;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
 /**
  * Represents a simple message
  */
 @Entity
+@Component
 @Table(name = "playerscores")
 public class PlayerScore {
 
@@ -31,5 +34,13 @@ public class PlayerScore {
     @Override
     public String toString() {
         return "PlayerScore [id = " + id + ", name =" + name + ", score =" + score + "]";
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
