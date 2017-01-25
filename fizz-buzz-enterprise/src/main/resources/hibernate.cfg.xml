@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/fizz-buzz</property>
+        <property name="connection.username">binu</property>
+        <property name="connection.password">binu</property>
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- Use XML-based mapping metadata -->
+        <!-- <mapping resource="domain/org.binu.scores.Scorebm.xml"/> -->
+        
+        <!-- Use Annotation-based mapping metadata -->
+        <mapping class="org.binu.scores.PlayerScore"/>
+        
+    </session-factory>
+</hibernate-configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
