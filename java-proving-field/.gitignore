@@ -2,3 +2,5 @@
 gradle/wrapper/*
 .gradle
 .gradle/*
+*.class
+*.jar
