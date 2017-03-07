@@ -19,10 +19,6 @@ var watchedBrowserify = watchify(browserify({
         cache: {},
         packageCache: {}
     }).plugin(tsify)
-    // .transform('babelify', {
-    //     presets: ['es2015'], 
-    //     extensions: ['.ts']
-    // })
 );
 
 gulp.task("copy-html", function() {
@@ -36,7 +32,6 @@ function bundle() {
         .pipe(source('bundle.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
-        // .pipe(uglify())
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist'));
 }
