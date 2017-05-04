@@ -1,0 +1,8 @@
+.container {
+    width: 1200px;
+    display: flex;
+}
+
+.panel {
+    min-width: 600px;
+}
