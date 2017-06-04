@@ -1,8 +1,30 @@
 .container {
-    width: 1200px;
-    display: flex;
+    line-height: 0;
+   -webkit-column-count: 2;
+   -webkit-column-gap:   0px;
+   -moz-column-count:    2;
+   -moz-column-gap:      0px;
+   column-count:         2;
+   column-gap:           0px;
 }
 
-.panel {
-    min-width: 600px;
+.panel-container {
+    width: 100%;
+    height: auto;
+}
+
+.panel-container img {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .container { column-count: 1; }
+}
+
+@media only screen and (min-width: 600px) {
+    .container { column-count: 2; }
+}
+
+@media only screen and (min-width: 900px) {
+    .container { column-count: 3; }
 }
