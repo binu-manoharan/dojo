@@ -1,3 +1,5 @@
+import Data.List (sort)
+
 -- starting out
 doubleMe x = x + x
 tripleMe x = x * 3
@@ -54,6 +56,7 @@ isNumberWeAreLookingFor :: Int -> Int -> Bool
 isNumberWeAreLookingFor problemNumber candidateNumber = isPerfectlyDivisible problemNumber candidateNumber && isPrime candidateNumber
   
 isPrime :: Int -> Bool
+isPrime 1 = False
 isPrime x = let series = [2..(truncate(sqrt (fromIntegral x)))]
             in null $ filter (\y -> isPerfectlyDivisible x y) series
 
@@ -62,9 +65,6 @@ isPerfectlyDivisible x y = x `mod` y == 0
 
 
 -- attempt 2
---euler3Solution :: Int -> Int
---euler3Solution problemNumber = ;
-
 largestPrimeFactor :: [Int] -> Int -> Int
 largestPrimeFactor remainingPrimes problemNumber =
   if head remainingPrimes == problemNumber
@@ -82,6 +82,49 @@ largestPrimeFactor remainingPrimes problemNumber =
 
 primes :: [Int]
 primes = filter isPrime [2..]
+
+-- problem 4
+largestPalindromeForTheProblem  :: Int
+largestPalindromeForTheProblem = maximum $ filter numberIsPalindrome allProductsForTheProblem
+
+largestPalindromeForTheProblem2  :: Int
+largestPalindromeForTheProblem2 = head $ filter numberIsPalindrome $ reverse $ sort allProductsForTheProblem
+
+allProductsForTheProblem :: [Int]
+allProductsForTheProblem = [ i * j | i <- [100..999], j <- [100..999] ]
+
+numberIsPalindrome :: Int -> Bool
+numberIsPalindrome x = let revNum = reverse $ show x
+                           num = show x
+                       in revNum == num
+                           
+-- problem 5
+num1to20 :: [Int]
+num1to20 = [1..20]
+
+largestCommonMultiplier1to20 :: Int
+largestCommonMultiplier1to20 = findMultiplier num1to20 1
+
+findMultiplier :: [Int] -> Int -> Int
+findMultiplier numbers currentValue = let prime = findPrimeNumber numbers
+                                          updatedMap = map (\x -> divideIfPerfectlyDivisible x prime) numbers
+                                      in findMultiplier updatedMap currentValue    
+
+ :: [Int] -> Int
+findPrimeNumber [] = undefined
+findPrimeNumber [x] = if isPrime x
+                     then x
+                     else undefined
+findPrimeNumber (x:xs) = if isPrime x
+                        then x
+                        else findPrimeNumber xs
+
+divideIfPerfectlyDivisible :: Int -> Int -> Int
+divideIfPerfectlyDivisible 1 _ = 1
+divideIfPerfectlyDivisible x y = if isPerfectlyDivisible x y
+                                 then x `div` y
+                                 else x
+
 
 -- problem 13
 numbers :: [Integer]
