@@ -2,9 +2,26 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <link rel='stylesheet' type='text/css' href='./masonry.css'>
+    <script>
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}
+    </script>
   </head>
   <body>
     <div class='container'>
+      <div id="div1" class='panel-container' ondrop="drop(event)" ondragover="allowDrop(event)" style="height: 10px; background-color: red;">
+      </div>
       <div class='panel-container'>
 	<img src='1.jpg'>
       </div>
@@ -14,7 +31,7 @@
       </div>
 
       <div class='panel-container'>
-	<img src='3.jpg'>
+	<img id="drag1" src='3.jpg' draggable="true" ondragstart="drag(event)">
       </div>
 
       <div class='panel-container'>
