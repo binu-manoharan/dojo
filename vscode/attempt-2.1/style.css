@@ -1,0 +1,21 @@
+body {
+    background: red;
+}
+
+.appbar {
+    height: 70px;
+    width: 100%;
+    background: yellow;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.flex-item {
+    margin-top: auto;
+    margin-bottom: auto;
+}
