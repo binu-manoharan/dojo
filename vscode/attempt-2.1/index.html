@@ -2,23 +2,37 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type='text/css' href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="script.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
     <div class="container">
-        <div class="sidebar"></div>
-        <div class="appbar flex-container">
-            <span class='flex-item flex-container'>
-                <i class='material-icons flex-item'>menu</i>
-                <h1 class='flex-item'>My awesome page!</h1>
+        <div id="sidebar" class="sidebar flex-container fixed flex-column flex-start hidesidebar">
+            <div class="item1">MenuItem001</div>
+            <div class="item2">MenuItem002</div>
+            <div class="item3">MenuItem003</div>
+            <div class="item4">MenuItem004</div>
+            <div class="item5">MenuItem005</div>
+        </div>
+
+        <div class="appbar flex-container flex-space-between fixed">
+            <span class="flex-item flex-container flex-space-between">
+                <span class="menu-container flex-item flex-container flex-center" onclick="toggleMenu()">
+                    <i class="material-icons flex-item">menu</i>
+                </span>
+            <h1 class="flex-item">My page!</h1>
             </span>
-            <span class='flex-item flex-container'>
-                <input type="text" id="textsearch" class='flex-item' name='searchtext'>
-                <i class='material-icons flex-item'>search</i>
+            <span class="search-container flex-item flex-container">
+                <input type="text" id="search-bar" class="flex-item hide" name="searchtext">
+                <span class="search-icon-container flex-item flex-container flex-center" onclick="toggleSearch()">
+                    <i class="material-icons flex-item">search</i>
+                </span>
             </span>
         </div>
+
         <div class="content"></div>
     </div>
 </body>

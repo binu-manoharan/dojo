@@ -1,25 +1,118 @@
+html {
+    font-size: 62.5%;
+}
 body {
-    background: red;
+    background: blue;
     height: 2000px;
+    margin: 0 0;
+    font-size: 2rem;
 }
 
 .appbar {
     height: 70px;
     width: 100%;
     background: yellow;
-    position: fixed;
     top: 0;
     left: 0;
 }
 
+.sidebar {
+    width: 200px;
+    top: 70px;
+    left: 0;
+    height: calc(100% - 70px);
+    background: pink;
+}
+
+.showsidebar {
+    transform: translate(0, 0);
+}
+
+.hidesidebar {
+    transform: translate(-200px, 0);
+}
+
+.item1, .item2, .item3, .item4, .item5 {
+    height: 2em;
+    padding: 0.5em 0;
+}
+
+.menu-container {
+    height: 50px;
+    width: 50px;
+}
+
+.search-container {
+    z-index: 2
+}
+.search-icon-container {
+    height: 50px;
+    width: 50px;
+}
+
+/* common class names for styling */
+
 .flex-container {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    
+}
+/* default assumed to be row */
+.flex-column {
+    flex-direction: column;
 }
 
 .flex-item {
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.flex-space-between {
+    justify-content: space-between;
+}
+.flex-center {
+    justify-content: center;
+}
+
+.flex-start {
+    justify-content: flex-start;
+}
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.fixed {
+    position: fixed;
+}
+
+/* review and remove later */
+.tmp-flex-item {
+    background: tomato;
+    padding: 5px;
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+
+    line-height: 50px;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+}
+
+.tmp-flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
 }
