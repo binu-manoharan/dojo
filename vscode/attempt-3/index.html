@@ -1,5 +1,6 @@
 <!DOCTYPE="html">
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -7,20 +8,27 @@
     <script src="script.js"></script>
 </head>
 
-<body onclick="sayHello()">
-    <div class="container flex container-space-between container-align-flex-center">
-        <div class="item001">
-            <i class="material-icons">menu</i>
+<body>
+    <div class="container">
+        <div class="appbar flex justify-space-between ">
+            <div class="flex justify-flex-start align-flex-center">
+                <span>
+                    <i class="material-icons">menu</i>
+                </span>
+                <span>
+                    <span class="page-header">My Page!</span>
+                </span>
+            </div>
+            <div id="search-container" class="flex justify-flex-end align-flex-center">
+                <span>
+                    <input type="text" name="searchtext">
+                </span>
+                <span>
+                    <i class="material-icons">search</i>
+                </span>
+            </div>
         </div>
-        <div class="item002">
-            <span class="page-header">My Page!</span>
-        </div>
-        <div class="item003">
-            <input type="text" name="searchtext">
-        </div>
-        <div class="item004">
-            <i class="material-icons">search</i>
-        </div>
+
     </div>
 </body>
 
