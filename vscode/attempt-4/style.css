@@ -1,0 +1,106 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background: #42a5f5;
+    margin: 0 0;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+}
+
+.banner {
+    height: 100%;
+    background-image: url(image.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.overlay {
+    background-image: url(myimg.svg);
+    background-color: rgba(0,0,0,0.3);
+}
+
+.overlay2 {
+    background-image: url(myimg2.svg);
+    background-color: rgba(255,255,255,0.3);
+}
+
+.overlay, 
+.overlay2 {
+    height: 100%;
+    fill: blue;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.overlay > h2, 
+.overlay2 > h2 {
+    font-size: 3rem;
+    letter-spacing: 1rem;
+    font-weight: bold;
+    color: #eee;
+}
+
+.footer {
+    height: 100%;
+    background-image: url(saber.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/* display: flex | inline-flex */
+/* flex-direction: row | row-reverse | column | column-reverse */
+/* flex-wrap: nowrap | wrap | wrap-reverse */
+/* flex-flow: <‘flex-direction’> || <‘flex-wrap’> */
+/* flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ] */
+/* justify-content: flex-start | flex-end | center | space-between | space-around */
+/* align-items: flex-start | flex-end | center | baseline | stretch */
+/* align-content: flex-start | flex-end | center | space-between | space-around | stretch; */
+
+/* order: <integer> */
+/* flex-grow: <number> */
+/* flex-shrink: <number>;*/
+/* flex-basis: <length> | auto */
+/* align-self: auto | flex-start | flex-end | center | baseline | stretch */
+
+.flex {
+    display: flex;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.justify-space-between {
+    justify-content: space-between;
+}
+
+.justify-flex-start {
+    justify-content: flex-start;
+}
+
+.justify-flex-end {
+    justify-content: flex-end;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-stretch {
+    align-items: stretch;
+}
+
+.align-flex-start {
+    align-items: flex-start;
+}
+
+.align-flex-center {
+    align-items: center;
+}
