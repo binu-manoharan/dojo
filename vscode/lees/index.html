@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Laravel</title>
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/app.css')}}">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.css" type='text/css'>
+</head>
+
+<body>
+
+    <!-- <div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    @if (Auth::check())
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
+                        <a href="{{ url('/login') }}">Login</a>
+                        <a href="{{ url('/register') }}">Register</a>
+                    @endif
+                </div>
+            @endif -->
+    <nav class="nav">
+
+        <div class="container">
+            <div class="nav-left">
+                <a class="nav-item" href="/"><img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo" /></a>
+            </div>
+            <div class="nav-right">
+                <a class="nav-item is-tab is-hidden-mobile is-active">Home</a>
+                <a class="nav-item is-tab is-hidden-mobile">Features</a>
+                <a class="nav-item is-tab is-hidden-mobile">Pricing</a>
+                <a class="nav-item is-tab is-hidden-mobile">About</a>
+            </div>
+            <span id="nav-toggle" class="nav-toggle">
+              <span></span>
+            <span></span>
+            <span></span>
+            </span>
+            <div id="nav-dd-menu" class="nav-menu hamburger">
+                <a class="nav-item is-tab is-hidden-tablet is-active" href="/">Home</a>
+                <a class="nav-item is-tab is-hidden-tablet">Features</a>
+                <a class="nav-item is-tab is-hidden-tablet">Pricing</a>
+                <a class="nav-item is-tab is-hidden-tablet">About</a>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <script type="text/javascript">
+        document.getElementById("nav-toggle").addEventListener("click", toggleNav);
+        function toggleNav() {
+            var nav = document.getElementById("nav-dd-menu");
+            var className = nav.getAttribute("class");
+            if (className === "nav-menu hamburger") {
+                nav.className = "nav-menu nav-right is-active";
+            } else {
+                nav.className = "nav-menu hamburger";
+            }
+        }
+        window.addEventListener("resize", () => {
+            var nav = document.getElementById("nav-dd-menu");
+            var className = nav.getAttribute("class");
+            if (className === "nav-menu nav-right is-active") {
+                toggleNav();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
