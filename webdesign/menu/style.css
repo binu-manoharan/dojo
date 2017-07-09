@@ -1,0 +1,29 @@
+.main-container {
+    /* 400 deep orange */
+    background: #FF7043;
+    box-sizing: border-box;
+}
+
+.all-menu {
+    box-sizing: inherit;
+    width: 50%;
+    height: 100%;
+    /* 500 grey */
+    border: 1px solid #9E9E9E; 
+}
+
+.menu001 {
+    background-color: #8BC34A;
+    align-content: flex-start;
+}
+
+.logo001 {
+    width: 100%;
+}
+
+.logo {
+    background-image: url('./images/logo.jpg');
+    background-color: red;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
