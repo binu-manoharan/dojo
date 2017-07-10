@@ -1,4 +1,4 @@
-import Data.List (sort)
+import Data.List (sort, transpose)
 
 -- starting out
 doubleMe x = x + x
@@ -163,7 +163,7 @@ problem7 = primes !! 10000 -- 0 indexed
 
 number = "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450"
 
-getListOfAdjacentChars :: String -> Int -> [String]
+getListOfAdjacentChars :: [a] -> Int -> [[a]]
 getListOfAdjacentChars [] _ = []
 getListOfAdjacentChars val numOfChars
   | length val >= numOfChars =
@@ -178,7 +178,45 @@ findProductOfNumericString val = let numbers = map (\c -> read [c]) val
 problem8 :: Int
 problem8 = maximum $ map (findProductOfNumericString) (getListOfAdjacentChars number 13)
 
+-- problem 9
+findHypotenuseRT :: Int -> Int -> Float
+findHypotenuseRT x y = sqrt $ fromIntegral $ x ^ 2 + y ^ 2
+
+isPythagoreanTriplet :: (Int, Int, Int) -> Bool
+isPythagoreanTriplet (a, b, c) = a ^ 2 + b ^ 2 == c ^ 2
+
+isSum1000 :: (Int, Int, Int) -> Bool
+isSum1000 (a, b, c) = a + b + c == 1000
+
+problem9 :: Int
+problem9 = let allTriples = [(a, b, c) |
+                   a <- [1..1000],
+                   b <- [1..1000],
+                   c <- [1..1000],
+                   a < b,
+                   b < c,
+                   a + b + c == 1000,
+                   isPythagoreanTriplet (a, b, c)
+                                       ]
+               firstElement = head allTriples
+               (a, b, c) = firstElement
+           in a * b * c
+
+-- problem 10
+problem10 :: Int
+problem10 = sum $ takeWhile (\x -> x < 2000000) primes
+
 -- problem 11
+getHorizontalWindows :: [[Int]]
+getHorizontalWindows = concat $ map (\x -> getListOfAdjacentChars x 4) grid
+
+getVerticalWindows :: [[Int]]
+getVerticalWindows = concat $ map (\x -> getListOfAdjacentChars x 4) (transpose grid)
+
+getProductMap :: [Int]
+getProductMap = map (\x -> product x) (getHorizontalWindows ++ getVerticalWindows)
+
+-- diagonal attempt
 
 data Coordinate = Coordinate { x:: Int, y:: Int }
 
@@ -211,7 +249,6 @@ grid = [
   [20, 73, 35, 29, 78, 31, 90, 01, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 05, 54],
   [01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48]
   ]
-
 
 -- problem 13
 numbers :: [Integer]

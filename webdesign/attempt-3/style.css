@@ -12,6 +12,20 @@ body {
     height: 72px;
 }
 
+.sidebar {
+    position: fixed;
+    top: 72px; /* same as container height */
+    left: -100px;
+}
+
+.showsidebar {
+    transform: translate(100px,0);
+}
+
+.hidesidebar {
+    transform: translate(-100px,0);
+}
+
 /* display: flex | inline-flex */
 /* order: <integer> */
 /* flex-direction: row | row-reverse | column | column-reverse */
