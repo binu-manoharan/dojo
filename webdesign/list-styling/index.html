@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <title>My Panel</title>
+    <style>
+        html {
+            font-size: 62.5%;
+        }
+
+        .list-container {
+            float: right;
+            box-sizing: border-box;
+            width: 300px;
+            height: 300px;
+            background: #fff;
+            border: 1px solid black;
+        }
+
+        .list-item-container {
+            box-sizing: inherit;
+            height: 90px;
+            background: #fff;
+            border: 1px solid yellow;
+            width: 100%;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .list-item {
+            box-sizing: border-box;
+            height: 100%;
+            background: green;
+            
+        }
+
+        .num-container {
+            box-sizing: inherit;
+            float: left;
+            width: 20%;
+            height: 100%;
+            color: white;
+            background: pink;
+            display: table;
+            text-align: center;
+        }
+
+        .num-element {
+            display: table-cell;
+            vertical-align: middle;
+            font-weight: bold;
+            font-size: 2rem;
+        }
+
+        .text-container {
+            box-sizing: inherit;
+            float: left;
+            width: 80%;
+            height: 100%;
+            color: black;
+            display: table;
+            padding-left: 5px;
+            font-size: 1.5rem;
+        }
+
+        .text-container>span {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .list-item-container a {
+            box-sizing: inherit;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="list-container">
+        <div class="list-item-container">
+            <div class="list-item">
+                <a href="#">
+                    <div class="num-container">
+                        <div class="num-element">4</div>
+                    </div>
+                    <div class="text-container"><span>Random text</span></div>
+                </a>
+            </div>
+        </div>
+        <div class="list-item-container">
+            <div class="list-item">
+                <a href="#">
+                    <div class="num-container">
+                        <div class="num-element">5</div>
+                    </div>
+                    <div class="text-container"><span>Random text</span></div>
+                </a>
+            </div>
+        </div>
+        <div class="list-item-container">
+            <div class="list-item">
+                <a href="#">
+                    <div class="num-container">
+                        <div class="num-element">6</div>
+                    </div>
+                    <div class="text-container"><span>Random text</span></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
