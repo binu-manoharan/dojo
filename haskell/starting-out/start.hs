@@ -217,8 +217,21 @@ getProductMap :: [Int]
 getProductMap = map (\x -> product x) (getHorizontalWindows ++ getVerticalWindows)
 
 -- diagonal attempt
+findRowDiagonalCoordinates :: [[Int]]--[[Coordinate]]
+findRowDiagonalCoordinates = let startingCoordinates = [ Coordinate {x = rowIdx, y = colIdx} |
+                                                         rowIdx <- [0..16],
+                                                         colIdx <- [0..16]]
+                                 coordinateLists = map findRowDiagonal startingCoordinates
+                             in map (map findNextDiagonalElement) coordinateLists
 
-data Coordinate = Coordinate { x:: Int, y:: Int }
+findRowDiagonal :: Coordinate -> [Coordinate]
+findRowDiagonal Coordinate {x = rowIdx, y = colIdx} = [Coordinate {x = rowIdx, y = rowIdx},
+                                  Coordinate {x = rowIdx + 1, y = rowIdx + 1},
+                                  Coordinate {x = rowIdx + 2, y = rowIdx + 2},
+                                  Coordinate {x = rowIdx + 3, y = rowIdx + 3}
+                                 ]
+                                                      
+data Coordinate = Coordinate { x:: Int, y:: Int } deriving (Show)
 
 findNextDiagonalElement :: Coordinate -> Int
 findNextDiagonalElement coordinate = let gridY = length $ grid !! 0
