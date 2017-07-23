@@ -10,7 +10,9 @@
   "devDependencies": {},
   "scripts": {
     "build-task:scss-compile:menu": "node-sass menu/scss -o menu/css",
+    "build-task:scss-watch:menu": "node-sass --watch menu/scss -o menu/css",
     "sass-runall": "npm-run-all -p build-task:scss-compile:*",
+    "sass-watchall": "npm-run-all -p build-task:scss-watch:*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
