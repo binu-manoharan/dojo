@@ -1,0 +1,21 @@
+/* Flex style class names */
+
+.flex {
+  display: flex;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.space-around {
+  justify-content: space-around;
+}
