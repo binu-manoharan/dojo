@@ -45,8 +45,6 @@ dependencies {
     // 'test.useTestNG()' to your build script.
     testCompile 'junit:junit:4.12'
 
+    compile 'org.apache.tiles:tiles-extras:3.0.7'
     compile 'javax.servlet:javax.servlet-api:3.0.1'
 }
-
-
-
