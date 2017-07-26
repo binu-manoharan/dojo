@@ -207,40 +207,45 @@ problem10 :: Int
 problem10 = sum $ takeWhile (\x -> x < 2000000) primes
 
 -- problem 11
-getHorizontalWindows :: [[Int]]
-getHorizontalWindows = concat $ map (\x -> getListOfAdjacentChars x 4) grid
+getHorizontalWindows :: [[Int]] -> [[Int]]
+getHorizontalWindows grid' = concat $ map (\x -> getListOfAdjacentChars x 4) grid'
 
-getVerticalWindows :: [[Int]]
-getVerticalWindows = concat $ map (\x -> getListOfAdjacentChars x 4) (transpose grid)
+getVerticalWindows :: [[Int]] -> [[Int]]
+getVerticalWindows grid' = concat $ map (\x -> getListOfAdjacentChars x 4) (transpose grid')
 
-getProductMap :: [Int]
-getProductMap = map (\x -> product x) (getHorizontalWindows ++ getVerticalWindows)
+getProductMap :: [[Int]] -> [Int]
+getProductMap grid' = map (\x -> product x) ((getHorizontalWindows grid') ++ (getVerticalWindows grid'))
+
+-- last $ sortBy (comparing snd) $ map (\x -> (x, product x)) $ findRowDiagonalCoordinates $ reverse grid1
 
 -- diagonal attempt
-findRowDiagonalCoordinates :: [[Int]]--[[Coordinate]]
-findRowDiagonalCoordinates = let startingCoordinates = [ Coordinate {x = rowIdx, y = colIdx} |
-                                                         rowIdx <- [0..16],
-                                                         colIdx <- [0..16]]
-                                 coordinateLists = map findRowDiagonal startingCoordinates
-                             in map (map findNextDiagonalElement) coordinateLists
+findRowDiagonalCoordinates :: [[Int]] -> [[Int]] --[[Coordinate]]
+findRowDiagonalCoordinates grid' = map (map (getGridElement grid')) (getDiagonalCoordinates grid')
+
+getDiagonalCoordinates :: [[Int]] -> [[Coordinate]]
+getDiagonalCoordinates grid' = let startingCoordinates = [ Coordinate {x = rowIdx, y = colIdx} |
+                                                           rowIdx <- [0..16],
+                                                           colIdx <- [0..16]]
+                                   coordinateLists = map findRowDiagonal startingCoordinates
+                               in coordinateLists
 
 findRowDiagonal :: Coordinate -> [Coordinate]
-findRowDiagonal Coordinate {x = rowIdx, y = colIdx} = [Coordinate {x = rowIdx, y = rowIdx},
-                                  Coordinate {x = rowIdx + 1, y = rowIdx + 1},
-                                  Coordinate {x = rowIdx + 2, y = rowIdx + 2},
-                                  Coordinate {x = rowIdx + 3, y = rowIdx + 3}
+findRowDiagonal Coordinate {x = rowIdx, y = colIdx} = [Coordinate {x = rowIdx, y = colIdx},
+                                  Coordinate {x = rowIdx + 1, y = colIdx + 1},
+                                  Coordinate {x = rowIdx + 2, y = colIdx + 2},
+                                  Coordinate {x = rowIdx + 3, y = colIdx + 3}
                                  ]
                                                       
 data Coordinate = Coordinate { x:: Int, y:: Int } deriving (Show)
 
-findNextDiagonalElement :: Coordinate -> Int
-findNextDiagonalElement coordinate = let gridY = length $ grid !! 0
-                                         gridX = length $ grid
-                                         isOutOfBounds = (x coordinate) >= gridX || (y coordinate) >= gridY
-                                     in (grid !! (x coordinate)) !! (y coordinate)
+getGridElement :: [[Int]] -> Coordinate -> Int
+getGridElement grid' coordinate = let gridY = length $ grid' !! 0
+                                      gridX = length $ grid'
+                                      isOutOfBounds = (x coordinate) >= gridX || (y coordinate) >= gridY
+                                  in (grid' !! (x coordinate)) !! (y coordinate)
                                  
-grid :: [[Int]]
-grid = [
+grid1 :: [[Int]]
+grid1 = [
   [08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08],
   [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 04, 56, 62, 00],
   [81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 03, 49, 13, 36, 65],
