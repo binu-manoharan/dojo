@@ -268,6 +268,27 @@ grid1 = [
   [01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48]
   ]
 
+-- problem 12
+
+triangleNumbers :: [Int]
+triangleNumbers = map (getTriangleNumber2) [1..]
+
+problem12 :: Int
+problem12 = head $ filter (\x -> (getNumberOfDivisors x) > 200) triangleNumbers
+                
+
+getTriangleNumber :: Int -> Int
+getTriangleNumber x = sum [1..x]
+
+getTriangleNumber2 :: Int -> Int
+getTriangleNumber2 x = x * (x + 1) `div` 2
+
+getNumberOfDivisors :: Int -> Int
+getNumberOfDivisors = length . getDivisors
+
+getDivisors :: Int -> [Int]
+getDivisors num = filter (\x -> isPerfectlyDivisible num x) [1..num]
+
 -- problem 13
 numbers :: [Integer]
 numbers = [
