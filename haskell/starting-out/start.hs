@@ -274,7 +274,7 @@ triangleNumbers :: [Int]
 triangleNumbers = map (getTriangleNumber2) [1..]
 
 problem12 :: Int
-problem12 = head $ filter (\x -> (getNumberOfDivisors x) > 200) triangleNumbers
+problem12 = head $ filter (\x -> (getNumberOfDivisors x) > 500) triangleNumbers
                 
 
 getTriangleNumber :: Int -> Int
@@ -284,12 +284,21 @@ getTriangleNumber2 :: Int -> Int
 getTriangleNumber2 x = x * (x + 1) `div` 2
 
 getNumberOfDivisors :: Int -> Int
-getNumberOfDivisors = length . getDivisors
+getNumberOfDivisors = length . getTriangleNumberDivisors
 
 getDivisors :: Int -> [Int]
 getDivisors num = filter (\x -> isPerfectlyDivisible num x) [1..num]
 
+getTriangleNumberDivisors :: Int -> [Int]
+getTriangleNumberDivisors num = let numsqrt = floor $ sqrt $ fromIntegral  num
+                                    initialFactors = filter (\x -> isPerfectlyDivisible num x) [1..numsqrt]
+                                    otherFactors = reverse $ map (\x -> num `div` x) initialFactors
+                                in initialFactors ++ otherFactors
+
 -- problem 13
+problem13 :: String
+problem13 = take 10 $ show $ sum numbers
+
 numbers :: [Integer]
 numbers = [
   37107287533902102798797998220837590246510135740250,
