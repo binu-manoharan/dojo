@@ -403,3 +403,22 @@ numbers = [
   53503534226472524250874054075591789781264330331690
   ]
   
+-- problem 14
+
+collatzRule :: Int -> Int
+collatzRule num
+  | num == 1 = 1
+  | isPerfectlyDivisible num 2 = quot num 2
+  | otherwise = 3 * num + 1
+
+collatzSequence :: Int -> [Int]
+collatzSequence num = collatzList num []
+
+collatzList :: Int -> [Int] -> [Int]
+collatzList num numbers = let newList = num : numbers
+                              nextNum = collatzRule num
+                          in if (num == 1)
+                             then newList
+                             else collatzList nextNum newList
+
+  
