@@ -1,4 +1,5 @@
-import Data.List (sort, transpose)
+import Data.List (sort, transpose, sortBy)
+import Data.Ord
 
 -- starting out
 doubleMe x = x + x
@@ -404,7 +405,35 @@ numbers = [
   ]
   
 -- problem 14
+problem14 :: Int
+problem14 = let listOfPairs = map (\x -> (x, length (collatzSequence x))) [1..1000000]
+            in fst $ head $ reverse $ sortBy comparePairs3 listOfPairs
 
+comparePairs :: (Int, Int) -> (Int, Int) -> Ordering
+comparePairs (a, b) (c, d) = if (b == d) then
+                               EQ
+                             else if (b < d) then
+                                    LT
+                                  else
+                                    GT
+
+comparePairs2 :: (Int, Int) -> (Int, Int) -> Ordering
+comparePairs2 p1 p2 = let a = snd p1
+                          b = snd p2
+                      in compare a b
+
+comparePairs3 :: (Int, Int) -> (Int, Int) -> Ordering
+comparePairs3 = comparing snd
+
+comparePairsReveresed :: (Int, Int) -> (Int, Int) -> Ordering
+comparePairsReveresed = negated . comparePairs3
+
+negated :: Ordering -> Ordering
+negated GT = LT
+negated LT = GT
+negated EQ = EQ
+                         
+  
 collatzRule :: Int -> Int
 collatzRule num
   | num == 1 = 1
