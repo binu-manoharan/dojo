@@ -9,8 +9,11 @@
   "author": "Binu",
   "license": "ISC",
   "devDependencies": {
+    "browserify": "^14.4.0",
     "gulp": "^3.9.1",
     "gulp-typescript": "^3.2.2",
-    "typescript": "^2.5.2"
+    "tsify": "^3.0.3",
+    "typescript": "^2.5.2",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

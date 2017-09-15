@@ -1,3 +1,8 @@
 import { sayHello } from './greet';
 
-console.log(sayHello('Welcome to TS'));
+function showHello(divName: string, name: string) {
+    const element = document.getElementById(divName);
+    element.innerText = sayHello(name);
+}
+
+showHello('greeting', 'TS');
