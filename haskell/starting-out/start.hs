@@ -425,8 +425,8 @@ comparePairs2 p1 p2 = let a = snd p1
 comparePairs3 :: (Int, Int) -> (Int, Int) -> Ordering
 comparePairs3 = comparing snd
 
-comparePairsReveresed :: (Int, Int) -> (Int, Int) -> Ordering
-comparePairsReveresed = negated . comparePairs3
+--comparePairsReveresed :: (Int, Int) -> (Int, Int) -> Ordering
+--comparePairsReveresed = negated . comparePairs3
 
 negated :: Ordering -> Ordering
 negated GT = LT
@@ -451,3 +451,80 @@ collatzList num numbers = let newList = num : numbers
                              else collatzList nextNum newList
 
   
+-- problem 15
+problem15 :: (Int, Int) -> Int
+problem15 (0, _) = 1
+problem15 (_, 0) = 1
+problem15 (x, y) = problem15 (x - 1, y) + problem15 (x, y - 1)
+
+pascalsTriangle :: Int -> [Int]
+pascalsTriangle 1 = [1]
+pascalsTriangle 2 = [1,1]
+pascalsTriangle 3 = [1,2,1]
+pascalsTriangle 4 = [1,3,3,1]
+pascalsTriangle numRows = [1] ++ getNextPascalRow (pascalsTriangle (numRows - 1)) ++ [1]
+
+getNextPascalRow :: [Int] -> [Int]
+getNextPascalRow [] = []
+getNextPascalRow (x:[]) = []
+getNextPascalRow (x:y:rest) = [ x + y ] ++ getNextPascalRow (y : rest)
+
+-- problem 16
+problem16 :: Int
+problem16 = sum $ map (\x -> read [x]) (show (2 ^ 1000))
+
+--problem 17
+getNameOfNumber :: Int -> String
+getNameOfNumber 0 = ""
+getNameOfNumber 1 = "one"
+getNameOfNumber 2 = "two"
+getNameOfNumber 3 = "three"
+getNameOfNumber 4 = "four"
+getNameOfNumber 5 = "five"
+getNameOfNumber 6 = "six"
+getNameOfNumber 7 = "seven"
+getNameOfNumber 8 = "eight"
+getNameOfNumber 9 = "nine"
+getNameOfNumber 10 = "ten"
+getNameOfNumber 11 = "eleven"
+getNameOfNumber 12 = "twelve"
+getNameOfNumber 13 = "thirteen"
+getNameOfNumber 14 = "fourteen"
+getNameOfNumber 15 = "fifteen"
+getNameOfNumber 16 = "sixteen"
+getNameOfNumber 17 = "seventeen"
+getNameOfNumber 18 = "eighteen"
+getNameOfNumber 19 = "nineteen"
+getNameOfNumber 20 = "twenty"
+getNameOfNumber 30 = "thirty"
+getNameOfNumber 40 = "forty"
+getNameOfNumber 50 = "fifty"
+getNameOfNumber 60 = "sixty"
+getNameOfNumber 70 = "seventy"
+getNameOfNumber 80 = "eighty"
+getNameOfNumber 90 = "ninety"
+--getNameOfNumber 100 = "hundred"
+getNameOfNumber 1000 = "onethousand"
+getNameOfNumber x
+  | x < 30 = getNameOfNumber 20 ++ getNameOfNumber (x - 20)
+  | x < 40 = getNameOfNumber 30 ++ getNameOfNumber (x - 30)
+  | x < 50 = getNameOfNumber 40 ++ getNameOfNumber (x - 40)
+  | x < 60 = getNameOfNumber 50 ++ getNameOfNumber (x - 50)
+  | x < 70 = getNameOfNumber 60 ++ getNameOfNumber (x - 60)
+  | x < 80 = getNameOfNumber 70 ++ getNameOfNumber (x - 70)
+  | x < 90 = getNameOfNumber 80 ++ getNameOfNumber (x - 80)
+  | x < 100 = getNameOfNumber 90 ++ getNameOfNumber (x - 90)
+  | x < 1000 = let numHundred = x `div` 100
+                   modHundred = x `mod` 100
+                   result = if (modHundred == 0)
+                            then
+                              (getNameOfNumber numHundred) ++ "hundred"
+                            else (getNameOfNumber numHundred) ++ "hundred" ++ "and" ++ (getNameOfNumber modHundred)
+               in result
+
+problem17Data :: [String]
+problem17Data = map (\x -> getNameOfNumber x) [1..1000]
+
+problem17 :: Int
+problem17 = sum $ map (length) problem17Data
+
