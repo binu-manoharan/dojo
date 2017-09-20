@@ -528,3 +528,27 @@ problem17Data = map (\x -> getNameOfNumber x) [1..1000]
 problem17 :: Int
 problem17 = sum $ map (length) problem17Data
 
+-- problem 18
+problem18SampleData :: [String]
+problem18SampleData =
+  [
+    "3",
+    "7 4",
+    "2 4 6",
+    "8 5 9 3"
+  ]
+
+parseProblem18Data :: [String] -> [[Int]]
+parseProblem18Data = map (\x -> parseStringToListOfInt x)
+
+parseStringToListOfInt :: String -> [Int]
+parseStringToListOfInt str = map (\x -> read x) (words str)
+
+data P18Node = P18Node { val:: Int, left :: Maybe P18Node, right :: Maybe P18Node } deriving (Show)
+
+--findTrianglePaths :: [Int] -> [[Int]]
+--findTrianglePaths problemData = undefined
+
+--magicFunction :: [[Int]] -> Node
+--magicFunction problemData = undefined
+
