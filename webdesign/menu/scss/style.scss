@@ -15,15 +15,10 @@
 .menu001 {
   background-color: #8BC34A;
   align-content: flex-start;
+  
+  .logoimg {
+    // max-width: 100%;
+    max-height: 100px;
+  }
 }
 
-.logo001 {
-  width: 100%;
-}
-
-.logo {
-  background-image: url('./images/logo.jpg');
-  background-color: red;
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-}

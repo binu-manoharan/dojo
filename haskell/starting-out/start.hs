@@ -552,18 +552,62 @@ data P18Node = P18Node { val:: Int, left :: Maybe P18Node, right :: Maybe P18Nod
 --magicFunction :: [[Int]] -> Node
 --magicFunction problemData = undefined
 
+-- attempt 1
+problem18Data :: [[Int]]
+problem18Data = [[3],[7,4],[2,4,6],[8,5,9,3]]
+
+p18parseData :: [[Int]] -> [[Int]]
+p18parseData [] = []
+p18parseData [x] = [x]
+p18parseData (x:y:xs) = let slength = length y
+                     in p18parseData $ zipWith (+) y (map (\v -> p18findValue x y v) [0..(slength - 1)]) :  xs
+                      
+p18findValue :: [Int] -> [Int] -> Int -> Int
+p18findValue firstRow secondRow index' = let value = if (index' == 0) then
+                                                    firstRow !! 0
+                                                  else
+                                                    if (index' == (length secondRow) - 1) then
+                                                      firstRow !! (index' - 1)
+                                                    else
+                                                      let val1 = firstRow !! (index' - 1)
+                                                          val2 = firstRow !! index'
+                                                      in maximum $ val1 : val2 : []
+                                                         
+                                      in value
+
+problem18Data2 :: [[Int]]
+problem18Data2 = [
+  [75],
+  [95,64],
+  [17,47,82],
+  [18,35,87,10],
+  [20,04,82,47,65],
+  [19,01,23,75,03,34],
+  [88,02,77,73,07,63,67],
+  [99,65,04,28,06,16,70,92],
+  [41,41,26,56,83,40,80,70,33],
+  [41,48,72,33,47,32,37,16,94,29],
+  [53,71,44,65,25,43,91,52,97,51,14],
+  [70,11,33,28,77,73,17,78,39,68,17,57],
+  [91,71,52,38,17,14,91,43,58,50,27,29,48],
+  [63,66,04,68,89,53,67,30,73,16,69,87,40,31],
+  [04,62,98,27,23,09,70,98,73,93,38,53,60,04,23]
+  ]
+
+
+-- attempt 2 - more haskellish way
 p18 :: Int
 p18 = let dataList = parseProblem18Data p18Data
       in maximum $ head $ p18f dataList
 
 p18f :: [[Int]] -> [[Int]]
 p18f (x:[]) = [x]
-p18f (x:y:xs) = p18f $ (combineList (0:x) y) : xs
+p18f (x:y:xs) = p18f $ (p18CombineList (0:x) y) : xs
 
-combineList :: [Int] -> [Int] -> [Int]
-combineList (a:[]) (x:[]) = [x + a]
-combineList (a:b:ab) (x:y:xy) = let val = if a > b then a else b
-                                in (x + val) : combineList (b:ab) (y:xy) 
+p18CombineList :: [Int] -> [Int] -> [Int]
+p18CombineList (a:[]) (x:[]) = [x + a]
+p18CombineList (a:b:ab) (x:y:xy) = let val = maximum [a, b] 
+                                   in (x + val) : p18CombineList (b:ab) (y:xy) 
 
 p18Data :: [String]
 p18Data =
@@ -584,3 +628,26 @@ p18Data =
     "63 66 04 68 89 53 67 30 73 16 69 87 40 31",
     "04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"
   ]
+
+-- problem 19
+
+data Month = January | February | March | April | May | June | July | August | September | October | November | December deriving (Eq)
+
+type Year = Int
+
+numberOfDaysInMonth :: Year -> Month -> Int
+numberOfDaysInMonth _ January = 31
+numberOfDaysInMonth year February = if isLeapYear year then 29 else 28
+numberOfDaysInMonth _ March = 31
+numberOfDaysInMonth _ April = 30
+numberOfDaysInMonth _ May = 31
+numberOfDaysInMonth _ June = 30
+numberOfDaysInMonth _ July = 31
+numberOfDaysInMonth _ August = 31
+numberOfDaysInMonth _ September = 30
+numberOfDaysInMonth _ October = 31
+numberOfDaysInMonth _ November = 30
+numberOfDaysInMonth _ December = 31
+
+isLeapYear :: Year -> Bool
+isLeapYear year = year `mod` 400 == 0 || (year `mod` 100 /= 0 && year `mod` 4 == 0 )
