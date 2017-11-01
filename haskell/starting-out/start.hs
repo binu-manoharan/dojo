@@ -631,9 +631,11 @@ p18Data =
 
 -- problem 19
 
-data Month = January | February | March | April | May | June | July | August | September | October | November | December deriving (Eq)
+data Month = January | February | March | April | May | June | July | August | September | October | November | December deriving (Eq, Show)
 
 type Year = Int
+
+type Day = Int
 
 numberOfDaysInMonth :: Year -> Month -> Int
 numberOfDaysInMonth _ January = 31
@@ -651,3 +653,59 @@ numberOfDaysInMonth _ December = 31
 
 isLeapYear :: Year -> Bool
 isLeapYear year = year `mod` 400 == 0 || (year `mod` 100 /= 0 && year `mod` 4 == 0 )
+
+data Date = Date {day :: Day, month :: Month, year :: Year} deriving (Eq, Show)
+
+getNextDay :: Date -> Date
+getNextDay Date {day = d, month = m, year = y} = if isLastDayOfMonth d m y then
+                                                    if isLastMonthOfTheYear m then
+                                                      Date {day = 1, month = getNextMonth m, year = y + 1}
+                                                      else
+                                                      Date {day = 1, month = getNextMonth m, year = y}
+                                                    else
+                                                    Date {day = d + 1, month = m, year = y}
+
+isLastDayOfMonth :: Day -> Month -> Year -> Bool
+isLastDayOfMonth d m y = d == numberOfDaysInMonth y m
+
+isLastMonthOfTheYear :: Month -> Bool
+isLastMonthOfTheYear m = m == December
+
+getNextMonth :: Month -> Month
+getNextMonth January = February
+getNextMonth February = March
+getNextMonth March = April
+getNextMonth April = May
+getNextMonth May = June
+getNextMonth June = July
+getNextMonth July = August
+getNextMonth August = September
+getNextMonth September = October
+getNextMonth October = November
+getNextMonth November = December
+getNextMonth December = January
+
+getListOfDates :: Date -> Date -> [Date]
+getListOfDates startDate endDate  | startDate == endDate = [startDate]
+                                  | otherwise = startDate : getListOfDates (getNextDay startDate) endDate
+
+
+data DayOfTheWeek = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday deriving (Eq, Show)
+
+getNextDayOfWeek :: DayOfTheWeek -> DayOfTheWeek
+getNextDayOfWeek Monday = Tuesday
+getNextDayOfWeek Tuesday = Wednesday
+getNextDayOfWeek Wednesday = Thursday
+getNextDayOfWeek Thursday = Friday
+getNextDayOfWeek Friday = Saturday
+getNextDayOfWeek Saturday = Sunday
+getNextDayOfWeek Sunday = Monday
+
+getCycle :: DayOfTheWeek -> [DayOfTheWeek]
+getCycle dayOfTheWeek = dayOfTheWeek : getCycle (getNextDayOfWeek dayOfTheWeek)
+
+p19 :: Int
+p19 = let allDates = getListOfDates Date{day=1,month=January,year=1900} Date{day=31,month=December,year=2000}
+          datesWithDayOfWeek = zip allDates (getCycle Monday)
+          allMondays = filter (\(x,y) -> y == Sunday) datesWithDayOfWeek
+      in length allMondays
