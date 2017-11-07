@@ -705,7 +705,11 @@ getCycle :: DayOfTheWeek -> [DayOfTheWeek]
 getCycle dayOfTheWeek = dayOfTheWeek : getCycle (getNextDayOfWeek dayOfTheWeek)
 
 p19 :: Int
-p19 = let allDates = getListOfDates Date{day=1,month=January,year=1900} Date{day=31,month=December,year=2000}
-          datesWithDayOfWeek = zip allDates (getCycle Monday)
+p19 = let --allDates = getListOfDates Date{day=1,month=January,year=1900} Date{day=31,month=December,year=2000}
+          datesWithDayOfWeek = getDatesWithDayOfWeek Date{day=1,month=January,year=1900} Date{day=31,month=December,year=2000}
           allMondays = filter (\(x,y) -> y == Sunday) datesWithDayOfWeek
       in length allMondays
+
+getDatesWithDayOfWeek :: Date -> Date -> [(Date, DayOfTheWeek)]
+getDatesWithDayOfWeek startDate endDate = let allDates = getListOfDates startDate endDate
+                                          in zip allDates (getCycle Monday)
