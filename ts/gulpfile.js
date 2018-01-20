@@ -75,6 +75,7 @@ gulp.task("copy-html", function () {
 });
 
 function bundle() {
+    gulp.start('copy-html');
     return watchedBrowserify
         .bundle()
         .pipe(source('bundle.js'))
