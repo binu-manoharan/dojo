@@ -10,7 +10,7 @@ var paths = {
     pages: ['src/html/*.html', 'src/css/*.css']
 };
 
-gulp.task("copy-html", function () {
+gulp.task('copy-html', function () {
     return gulp.src(paths.pages)
         .pipe(gulp.dest("dist"));
 });
@@ -21,9 +21,11 @@ gulp.task('sass', function() {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('watchcss', function() {
-    gulp.watch('src/scss/**/*.scss', [sass]);
+gulp.task('watchcsshtml', function() {
+    gulp.watch('src/scss/**/*.scss', ['sass']);
+    gulp.watch('src/html/**/*.html', ['copy-html']);
 });
+
 
 var watchedBrowserify = watchify(browserify({
     basedir: '.',
@@ -45,4 +47,4 @@ function bundle() {
 watchedBrowserify.on("update", bundle);
 watchedBrowserify.on("log", gutil.log);
 
-gulp.task("default", ["copy-html", "watchcss"], bundle);
+gulp.task("default", ["copy-html", "watchcsshtml"], bundle);
