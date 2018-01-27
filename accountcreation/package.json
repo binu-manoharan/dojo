@@ -12,6 +12,7 @@
     "browserify": "^15.2.0",
     "gulp": "^3.9.1",
     "gulp-cli": "^2.0.1",
+    "gulp-sass": "^3.1.0",
     "gulp-typescript": "^3.2.4",
     "gulp-util": "^3.0.8",
     "tsify": "^3.0.4",
