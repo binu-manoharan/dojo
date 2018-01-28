@@ -18,7 +18,7 @@ gulp.task('copy-html', function () {
 gulp.task('sass', function() {
     return gulp.src('src/scss/*.scss')
         .pipe(sass())
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist'))
 });
 
 gulp.task('watchcsshtml', function() {
@@ -41,8 +41,6 @@ function bundle() {
         .pipe(source('bundle.js'))
         .pipe(gulp.dest("dist"));
 }
-
-
 
 watchedBrowserify.on("update", bundle);
 watchedBrowserify.on("log", gutil.log);
