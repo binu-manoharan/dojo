@@ -1,0 +1,27 @@
+.product-checkout {
+    // border: 1px solid #cecece;
+    display: flex;
+    justify-content: space-around;
+}
+.product-name {
+    width: 200px;
+}
+
+.checkout-action-title,
+.checkout-action {
+    width: 90px;
+}
+
+.increase-product-qty,
+.reduce-product-qty {
+    width: 35px;
+}
+
+.my-navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price {
+    display: flex;
+}

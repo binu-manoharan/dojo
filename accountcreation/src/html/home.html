@@ -11,11 +11,11 @@
     <body>
         <div class="section" id="home-page">
             <div class="container">
-                <div class="navbar">
+                <div class="navbar my-navbar">
                     <div class="nav-brand">
                         <h1 class="title" id="welcome-message"></h1>
                     </div>
-                    <a href="./login.html" class="nav-item navbar-end button is-danger">Logout</a>
+                    <a href="./login.html" class="nav-item button is-danger">Logout</a>
                 </div>
                 <h2 class="subtitle">What would you like to do today?</h2>
                 <div class="tabs">
@@ -29,7 +29,31 @@
             </div>
         </div>
         <div class="section">
-            <div class="container" id="home-page-content"></div>
+            <div class="container" id="home-page-content">
+                <div class="product-checkout">
+                    <div class="label">Item name</div>
+                    <div class="label">Qty</div>
+                    <div class="label">Unit Price</div>
+                    <div class="checkout-action-title"></div>
+                    <div class="label">Total</div>
+                </div>
+                <div class="product-checkout">
+                    <div>Potato</div>
+                    <div>1</div>
+                    <div class="price">
+                        <div>£</div>
+                        <div>10</div>
+                    </div>
+                    <div class="checkout-action">
+                        <div class="button is-primary reduce-product-qty is-small">-</div>
+                        <div class="button is-primary increase-product-qty is-small">+</div>
+                    </div>
+                    <div class="price">
+                        <div>£</div>
+                        <div>10</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
