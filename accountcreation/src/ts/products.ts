@@ -1,9 +1,9 @@
-interface Product {
+export interface Product {
     name: string;
     unitprice: number;
 }
 
-const products = [
+export const products: Product[] = [
     { name: 'Apple', unitprice: 10 },
     { name: 'Banana', unitprice: 5 },
     { name: 'Peach', unitprice: 15 },
