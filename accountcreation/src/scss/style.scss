@@ -2,14 +2,23 @@
 .product-checkout {
     display: flex;
     justify-content: space-around;
+    height: 50px;
 }
 .product-name {
     width: 200px;
 }
 
+.price,
+.qty,
+.total {
+    width: 50px;
+}
+
 .checkout-action-title,
 .checkout-action {
     width: 90px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .increase-product-qty,
@@ -24,4 +33,19 @@
 
 .price {
     display: flex;
+}
+
+#checkout-footer {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.checkout-total-message {
+    width: 200px;
+}
+
+.checkout-total {
+    width: 50px;
 }

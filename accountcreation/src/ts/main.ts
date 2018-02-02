@@ -1,3 +1,5 @@
+import { CheckoutPage } from './checkout';
+
 function $1(elem: string) {
     return document.getElementById(elem);
 }
@@ -59,6 +61,9 @@ function initialiseHomePage() {
     const welcomeMessageDiv = $1('welcome-message');
     welcomeMessageDiv.innerText = welcomeMessage;
     document.title = welcomeMessage;
+    
+    const elem = $1('checkout-content') as HTMLDivElement;
+    CheckoutPage.setupCheckoutPage(elem);
 }
 
 function initaliseApp() {
