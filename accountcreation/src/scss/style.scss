@@ -37,15 +37,20 @@
 
 #checkout-footer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
     font-weight: bold;
     font-size: 20px;
 }
 
 .checkout-total-message {
-    width: 200px;
+    width: 240px;
+    text-align: right;
 }
 
 .checkout-total {
+    width: 50px;
+}
+
+.spacer {
     width: 50px;
 }

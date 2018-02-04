@@ -113,9 +113,17 @@ class CheckoutItem {
         reduce.innerText = '-';
         Rx.Observable.fromEvent(reduce, 'click')
             .subscribe(() => {
-                this.checkoutData.total = this.checkoutData.total - this.checkoutData.product.unitprice
-                totalPrice.innerText = this.checkoutData.total.toString();
-                this.updateCheckoutTotal(this.checkoutData.product.unitprice);
+                if (this.checkoutData.quantity !== 0) { 
+                    this.checkoutData.total = this.checkoutData.total - this.checkoutData.product.unitprice
+                    if (this.checkoutData.quantity === 8) {
+                        this.checkoutData.quantity--;
+                    }
+                    this.checkoutData.quantity--;
+                    productQty.innerText = this.checkoutData.quantity.toString();
+                    
+                    totalPrice.innerText = this.checkoutData.total.toString();
+                    this.updateCheckoutTotal(this.checkoutData.product.unitprice, false);
+                }
             });
 
         const increase = document.createElement('div');
@@ -124,8 +132,13 @@ class CheckoutItem {
         Rx.Observable.fromEvent(increase, 'click')
             .subscribe(() => { 
                 this.checkoutData.total = this.checkoutData.total + this.checkoutData.product.unitprice
+                if (this.checkoutData.quantity === 5) {
+                    this.checkoutData.quantity++;
+                }
+                this.checkoutData.quantity++;
+                productQty.innerText = this.checkoutData.quantity.toString();
                 totalPrice.innerText = this.checkoutData.total.toString();
-                this.updateCheckoutTotal(this.checkoutData.product.unitprice);
+                this.updateCheckoutTotal(this.checkoutData.product.unitprice, true);
             });
         checkoutActions.appendChild(reduce);
         checkoutActions.appendChild(increase);
@@ -139,10 +152,14 @@ class CheckoutItem {
         return productCheckout;
     }
     
-    private updateCheckoutTotal(price: number) {
+    private updateCheckoutTotal(price: number, add: boolean) {
         const totalDiv = document.getElementById('checkout-total');
-        const total = parseInt(totalDiv.innerText);
-
-        totalDiv.innerText = (total + price).toString();
+        let total = parseInt(totalDiv.innerText);
+        if (add) {
+            total = total + price;
+        } else { 
+            total = total - price;
+        }
+        totalDiv.innerText = total.toString();
     }
 }
