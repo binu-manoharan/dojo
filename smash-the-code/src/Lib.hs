@@ -18,7 +18,34 @@ data Grid = Grid {
       }
 
 parseGrid :: [String] -> Grid
-parseGrid = undefined
+parseGrid inputLines = Grid {internalArray = twoDArray}
+  where twoDArray = array dimensions values
+        dimensions = ((0,0), (width - 1, height - 1))
+        values = parseArray inputLines
+        height = length inputLines
+        width = length $ head inputLines
+
+parseArray :: [String] -> [((Int, Int), Cell)]
+parseArray inputLines = concat $ zipWith parseRow inputLines [0..]
+
+parseRow :: String -> Int -> [((Int, Int), Cell)]
+parseRow inputLine rowNum = zipWith3 parseCell inputLine (repeat rowNum) [0..]
+                                
+parseCell :: Char -> Int -> Int -> ((Int, Int), Cell)
+parseCell char rowNum colNum = ((colNum, rowNum), (readCell char))
+
+readCell :: Char -> Cell
+readCell char = Cell {
+  value = case char of
+      '.' -> Empty
+      '0' -> Skull
+      '1' -> ColourValue Blue
+      '2' -> ColourValue Green
+      '3' -> ColourValue Red
+      '4' -> ColourValue Yellow
+      '5' -> ColourValue Purple
+      }
+          
 
 renderGrid :: Grid -> [String]
 renderGrid grid = let internalArray' = internalArray grid
