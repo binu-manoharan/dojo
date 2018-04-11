@@ -57,6 +57,10 @@ function initialiseHomePage() {
     }
 
     const username = sessionStorage.getItem('username');
+    if (username === null) {
+        window.location.href = './login.html';
+    }
+
     const welcomeMessage = `Welcome ${username}`;
     const welcomeMessageDiv = $1('welcome-message');
     welcomeMessageDiv.innerText = welcomeMessage;
