@@ -45,13 +45,26 @@ readCell char = Cell {
       '4' -> ColourValue Yellow
       '5' -> ColourValue Purple
       }
-          
 
 renderGrid :: Grid -> [String]
 renderGrid grid = let internalArray' = internalArray grid
                       indices' = indices internalArray'
-                  in error $ show indices'
+                      bounds' = bounds (internalArray grid)
+                      upperBound = snd bounds'
+                      height = snd upperBound
+                      rowNumbers = [0..height]
+                  in map (renderRow grid) rowNumbers
 
+renderRow :: Grid -> Int -> String
+renderRow grid rowNum = let allIndices = indices (internalArray grid)
+                            rowIndices = indicesForRow allIndices rowNum
+                            cellValues = map (\i -> (internalArray grid) ! i) rowIndices
+                            renderedCellValues = map renderCell cellValues
+                        in renderedCellValues
+
+-- TODO Use coordinates
+indicesForRow :: [(Int, Int)] -> Int -> [(Int, Int)]
+indicesForRow allIndices rowIndex = filter (\x -> snd x == rowIndex) allIndices
 
 renderCell :: Cell -> Char
 renderCell cell = case value cell of

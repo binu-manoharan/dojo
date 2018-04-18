@@ -16,4 +16,4 @@ main = hspec $ do
       let renderedGrid = renderGrid grid
       renderedGrid `shouldBe` input
 
-
+-- TODO Make the block drop on the grid
