@@ -1,21 +1,27 @@
 module Lib where
 
 import Data.Array
+import Data.List
 
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
 
 data Colour = Blue | Green | Red | Yellow | Purple
+            deriving (Eq)
 
 data CellValue = Empty | Skull | ColourValue Colour
+               deriving (Eq)
  
 data Cell = Cell {
   value :: CellValue
-}
+} deriving (Eq)
 
 data Grid = Grid {
   internalArray :: Array (Int, Int) Cell
-      }
+      } deriving (Eq)
+
+instance Show Grid where
+  show grid = intercalate "\n" $ renderGrid grid
 
 parseGrid :: [String] -> Grid
 parseGrid inputLines = Grid {internalArray = twoDArray}
@@ -77,3 +83,18 @@ renderCell cell = case value cell of
     Yellow -> '4'
     Purple -> '5'
 
+applyGravity :: Grid -> Grid
+applyGravity grid = undefined
+
+data Column = [CellValue]
+
+applyGravityToColumn :: Grid -> Int -> Grid
+applyGravityToColumn = undefined
+
+getGridColumns :: Grid -> Int -> Column
+getGridColumns grid colIndex = let internalArray' = internalArray grid
+                                   indices = [(colIndex, y) | y <- [0..(getGridHeight grid)]]
+                               in undefined
+
+getGridHeight :: Grid -> Int
+getGridHeight grid = snd $ snd $ bounds (internalArray grid)

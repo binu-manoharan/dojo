@@ -16,4 +16,17 @@ main = hspec $ do
       let renderedGrid = renderGrid grid
       renderedGrid `shouldBe` input
 
+    it "should apply gravity on the grid" $ do
+      let inputGrid = parseGrid [
+            ".012",
+            "...."
+            ]
+          expectedOutput = parseGrid [
+            "....",
+            ".012"
+            ]
+      let gridWithGravityApplied = applyGravity inputGrid
+      gridWithGravityApplied `shouldBe` expectedOutput
+
 -- TODO Make the block drop on the grid
+
