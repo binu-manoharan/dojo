@@ -7,14 +7,17 @@ someFunc :: IO ()
 someFunc = putStrLn "someFunc"
 
 data Colour = Blue | Green | Red | Yellow | Purple
-            deriving (Eq)
+            deriving (Eq, Show)
 
 data CellValue = Empty | Skull | ColourValue Colour
-               deriving (Eq)
+               deriving (Eq, Show)
  
 data Cell = Cell {
   value :: CellValue
-} deriving (Eq)
+} deriving (Eq, Show)
+
+isEmptyCell :: Cell -> Bool
+isEmptyCell c = (value c) == Empty
 
 data Grid = Grid {
   internalArray :: Array (Int, Int) Cell
@@ -56,7 +59,7 @@ renderGrid :: Grid -> [String]
 renderGrid grid = let internalArray' = internalArray grid
                       indices' = indices internalArray'
                       bounds' = bounds (internalArray grid)
-                      upperBound = snd bounds'
+                      upperBound = snd bounds' -- TODO Add functions to get height and width
                       height = snd upperBound
                       rowNumbers = [0..height]
                   in map (renderRow grid) rowNumbers
@@ -84,17 +87,38 @@ renderCell cell = case value cell of
     Purple -> '5'
 
 applyGravity :: Grid -> Grid
-applyGravity grid = undefined
+applyGravity grid = let bounds' = bounds (internalArray grid)
+                        upperBound = snd bounds'
+                        width = 1 + (fst upperBound)
+                        colIndices = [0..(width - 1)]
+                    in foldl applyGravityToColumn grid colIndices
 
-data Column = [CellValue]
+data Column = Column [Cell] deriving (Show)
 
 applyGravityToColumn :: Grid -> Int -> Grid
-applyGravityToColumn = undefined
+applyGravityToColumn grid colIndex = let
 
-getGridColumns :: Grid -> Int -> Column
-getGridColumns grid colIndex = let internalArray' = internalArray grid
-                                   indices = [(colIndex, y) | y <- [0..(getGridHeight grid)]]
-                               in undefined
+  column@(Column columnValues) = getGridColumn grid colIndex
+
+  padding = replicate ((length columnValues) - (length nonEmptyCellValues)) Cell {value = Empty}
+  nonEmptyCellValues = filter (not . isEmptyCell) columnValues
+  newColumn = padding ++ nonEmptyCellValues
+
+  indices' = [(colIndex, y) | y <- [0..((getGridHeight grid) - 1)]]
+  
+  updates = zip indices' newColumn
+  
+  oldInternalArray = internalArray grid
+  newInternalArray = oldInternalArray // updates
+  in Grid {internalArray = newInternalArray}
+
+
+
+getGridColumn :: Grid -> Int -> Column
+getGridColumn grid colIndex = let internalArray' = internalArray grid
+                                  indices' = [(colIndex, y) | y <- [0..((getGridHeight grid) - 1)]]
+                                  cells = map (\i -> internalArray' ! i) indices'
+                               in Column $ cells
 
 getGridHeight :: Grid -> Int
-getGridHeight grid = snd $ snd $ bounds (internalArray grid)
+getGridHeight grid = (+) 1 $ snd $ snd $ bounds (internalArray grid)
