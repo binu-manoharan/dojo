@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import SmashTheCode
 
 main :: IO ()
-main = someFunc
+main = undefined

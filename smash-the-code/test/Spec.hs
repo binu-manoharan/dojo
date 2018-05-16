@@ -1,5 +1,5 @@
 import Test.Hspec
-import Lib
+import SmashTheCode
 
 main :: IO ()
 main = hspec $ do
@@ -16,7 +16,7 @@ main = hspec $ do
       let renderedGrid = renderGrid grid
       renderedGrid `shouldBe` input
 
-    it "should apply gravity on the grid" $ do
+    it "should apply gravity on the grid test 1" $ do
       let inputGrid = parseGrid [
             ".012",
             "...."
@@ -24,6 +24,18 @@ main = hspec $ do
           expectedOutput = parseGrid [
             "....",
             ".012"
+            ]
+      let gridWithGravityApplied = applyGravity inputGrid
+      gridWithGravityApplied `shouldBe` expectedOutput
+
+    it "should apply gravity on the grid test 2" $ do
+      let inputGrid = parseGrid [
+            ".012",
+            "..10"
+            ]
+          expectedOutput = parseGrid [
+            "..12",
+            ".010"
             ]
       let gridWithGravityApplied = applyGravity inputGrid
       gridWithGravityApplied `shouldBe` expectedOutput
@@ -39,7 +51,23 @@ main = hspec $ do
             ]
       let columnWithGravityApplied = applyGravityToColumn inputGrid 1
       columnWithGravityApplied `shouldBe` expectedOutput
-      
 
--- TODO 
+    it "should place block in the column" $ do
+      let inputGrid = parseGrid [
+            "....",
+            "....",
+            "....",
+            "...."
+            ]
+          block = Block { cellBottom = Red, cellTop = Blue }
+          expectedOutput = parseGrid [
+            "....",
+            "....",
+            "1...",
+            "3..."
+            ]
+      let gridWithBlockPlaced = placeBlockInColumn inputGrid 0 block
+      gridWithBlockPlaced `shouldBe` expectedOutput
+
+
 

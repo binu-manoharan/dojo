@@ -4,10 +4,10 @@ import Data.Array
 import Data.List
 import Cell
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
-
-
+data Block = Block {
+  cellBottom :: Colour,
+  cellTop :: Colour
+  }
 
 data Grid = Grid {
   internalArray :: Array (Int, Int) Cell
@@ -23,27 +23,6 @@ parseGrid inputLines = Grid {internalArray = twoDArray}
         values = parseArray inputLines
         height = length inputLines
         width = length $ head inputLines
-
-parseArray :: [String] -> [((Int, Int), Cell)]
-parseArray inputLines = concat $ zipWith parseRow inputLines [0..]
-
-parseRow :: String -> Int -> [((Int, Int), Cell)]
-parseRow inputLine rowNum = zipWith3 parseCell inputLine (repeat rowNum) [0..]
-                                
-parseCell :: Char -> Int -> Int -> ((Int, Int), Cell)
-parseCell char rowNum colNum = ((colNum, rowNum), (readCell char))
-
-readCell :: Char -> Cell
-readCell char = Cell {
-  value = case char of
-      '.' -> Empty
-      '0' -> Skull
-      '1' -> ColourValue Blue
-      '2' -> ColourValue Green
-      '3' -> ColourValue Red
-      '4' -> ColourValue Yellow
-      '5' -> ColourValue Purple
-      }
 
 renderGrid :: Grid -> [String]
 renderGrid grid = let internalArray' = internalArray grid
@@ -64,17 +43,6 @@ renderRow grid rowNum = let allIndices = indices (internalArray grid)
 -- TODO Use coordinates
 indicesForRow :: [(Int, Int)] -> Int -> [(Int, Int)]
 indicesForRow allIndices rowIndex = filter (\x -> snd x == rowIndex) allIndices
-
-renderCell :: Cell -> Char
-renderCell cell = case value cell of
-  Empty -> '.'
-  Skull -> '0'
-  ColourValue c -> case c of
-    Blue -> '1'
-    Green -> '2'
-    Red -> '3'
-    Yellow -> '4'
-    Purple -> '5'
 
 applyGravity :: Grid -> Grid
 applyGravity grid = let bounds' = bounds (internalArray grid)
@@ -103,7 +71,6 @@ applyGravityToColumn grid colIndex = let
   in Grid {internalArray = newInternalArray}
 
 
-
 getGridColumn :: Grid -> Int -> Column
 getGridColumn grid colIndex = let internalArray' = internalArray grid
                                   indices' = [(colIndex, y) | y <- [0..((getGridHeight grid) - 1)]]
@@ -112,3 +79,6 @@ getGridColumn grid colIndex = let internalArray' = internalArray grid
 
 getGridHeight :: Grid -> Int
 getGridHeight grid = (+) 1 $ snd $ snd $ bounds (internalArray grid)
+
+placeBlockInColumn :: Grid -> Int -> Block -> Grid
+placeBlockInColumn = undefined
