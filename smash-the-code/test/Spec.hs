@@ -1,5 +1,6 @@
 import Test.Hspec
 import SmashTheCode
+import Cell
 
 main :: IO ()
 main = hspec $ do
@@ -61,13 +62,29 @@ main = hspec $ do
             ]
           block = Block { cellBottom = Red, cellTop = Blue }
           expectedOutput = parseGrid [
-            "....",
-            "....",
             "1...",
-            "3..."
+            "3...",
+            "....",
+            "...."
             ]
       let gridWithBlockPlaced = placeBlockInColumn inputGrid 0 block
       gridWithBlockPlaced `shouldBe` expectedOutput
 
+    it "should not place block in the column when there is no space" $ do
+      let inputGrid = parseGrid [
+            "1...",
+            "2...",
+            "3...",
+            "4..."
+            ]
+          block = Block { cellBottom = Red, cellTop = Blue }
+          expectedOutput = parseGrid [
+            "1...",
+            "2...",
+            "3...",
+            "4..."
+            ]
+      let gridWithBlockPlaced = placeBlockInColumn inputGrid 0 block
+      gridWithBlockPlaced `shouldBe` expectedOutput
 
 

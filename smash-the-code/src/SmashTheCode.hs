@@ -65,10 +65,8 @@ applyGravityToColumn grid colIndex = let
   indices' = [(colIndex, y) | y <- [0..((getGridHeight grid) - 1)]]
   
   updates = zip indices' newColumn
-  
-  oldInternalArray = internalArray grid
-  newInternalArray = oldInternalArray // updates
-  in Grid {internalArray = newInternalArray}
+  in updateGrid grid updates
+
 
 
 getGridColumn :: Grid -> Int -> Column
@@ -81,4 +79,22 @@ getGridHeight :: Grid -> Int
 getGridHeight grid = (+) 1 $ snd $ snd $ bounds (internalArray grid)
 
 placeBlockInColumn :: Grid -> Int -> Block -> Grid
-placeBlockInColumn = undefined
+placeBlockInColumn grid colIndex block = let internalArray' = internalArray grid
+                                             gridColumn = getGridColumn grid colIndex
+                                             indicesToUpdate = [(colIndex, 0), (colIndex, 1)]
+                                             cellsToInsert = map colourCell [
+                                               cellTop block, cellBottom block
+                                               ]
+                                             updates = zip indicesToUpdate cellsToInsert
+                                         in updateGrid grid updates
+
+updateGrid :: Grid -> [((Int, Int), Cell)] -> Grid
+updateGrid grid updates = let oldInternalArray = internalArray grid
+                              newInternalArray = oldInternalArray // updates
+                          in Grid {internalArray = newInternalArray}
+
+             
+                                             
+                                             
+
+

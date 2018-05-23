@@ -10,6 +10,9 @@ data Cell = Cell {
   value :: CellValue
 } deriving (Eq, Show)
 
+colourCell :: Colour -> Cell
+colourCell c = Cell { value = ColourValue c }
+
 isEmptyCell :: Cell -> Bool
 isEmptyCell c = (value c) == Empty
 
