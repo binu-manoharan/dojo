@@ -61,7 +61,7 @@ main = hspec $ do
             "...."
             ]
           block = Block { cellBottom = Red, cellTop = Blue }
-          expectedOutput = parseGrid [
+          expectedOutput = Left $ parseGrid [
             "1...",
             "3...",
             "....",
@@ -78,13 +78,23 @@ main = hspec $ do
             "4..."
             ]
           block = Block { cellBottom = Red, cellTop = Blue }
-          expectedOutput = parseGrid [
-            "1...",
-            "2...",
-            "3...",
-            "4..."
-            ]
+          expectedOutput = Right NoSpaceInGrid
       let gridWithBlockPlaced = placeBlockInColumn inputGrid 0 block
       gridWithBlockPlaced `shouldBe` expectedOutput
 
-
+    it "should place block in the column and apply gravity" $ do
+      let inputGrid = parseGrid [
+            "....",
+            "....",
+            "....",
+            "...."
+            ]
+          block = Block { cellBottom = Red, cellTop = Blue }
+          expectedOutput = Left $ parseGrid [
+            "....",
+            "....",
+            "1...",
+            "3..."
+            ]
+      let gridWithBlockDropped = dropBlockInColumn inputGrid 0 block
+      gridWithBlockDropped `shouldBe` expectedOutput
