@@ -3,6 +3,7 @@ module SmashTheCode where
 import Data.Array
 import Data.List
 import Cell
+import Control.Arrow
 
 data Block = Block {
   cellBottom :: Colour,
@@ -78,23 +79,40 @@ getGridColumn grid colIndex = let internalArray' = internalArray grid
 getGridHeight :: Grid -> Int
 getGridHeight grid = (+) 1 $ snd $ snd $ bounds (internalArray grid)
 
-placeBlockInColumn :: Grid -> Int -> Block -> Grid
-placeBlockInColumn grid colIndex block = let internalArray' = internalArray grid
-                                             gridColumn = getGridColumn grid colIndex
-                                             indicesToUpdate = [(colIndex, 0), (colIndex, 1)]
-                                             cellsToInsert = map colourCell [
-                                               cellTop block, cellBottom block
-                                               ]
-                                             updates = zip indicesToUpdate cellsToInsert
-                                         in updateGrid grid updates
+-- data GridOrException = Grid | NoSpaceInGrid
+data NoSpaceInGrid = NoSpaceInGrid deriving (Show, Eq)
+
+placeBlockInColumn :: Grid -> Int -> Block -> Either Grid NoSpaceInGrid
+placeBlockInColumn grid colIndex block =
+  let internalArray' = internalArray grid
+      gridColumn = getGridColumn grid colIndex
+      indicesToUpdate = [(colIndex, 0), (colIndex, 1)]
+      cellsToInsert = map colourCell [
+        cellTop block, cellBottom block
+        ]
+      updates = zip indicesToUpdate cellsToInsert
+      currentValuesAtIndices = map (getGridCell grid) indicesToUpdate
+      hasSpace = all isEmptyCell currentValuesAtIndices
+  in if (hasSpace) then
+        Left $ updateGrid grid updates
+     else Right NoSpaceInGrid
+
+getGridCell :: Grid -> (Int, Int) -> Cell
+getGridCell grid (x, y) = let internalArray' = internalArray grid
+                          in internalArray' ! (x, y)
 
 updateGrid :: Grid -> [((Int, Int), Cell)] -> Grid
 updateGrid grid updates = let oldInternalArray = internalArray grid
                               newInternalArray = oldInternalArray // updates
                           in Grid {internalArray = newInternalArray}
 
-             
-                                             
-                                             
+dropBlockInColumn :: Grid -> Int -> Block -> Either Grid NoSpaceInGrid
+dropBlockInColumn grid colIndex block =
+  mapLeft' applyGravity (placeBlockInColumn grid colIndex block)
 
+mapLeft :: Either a b -> (a -> c) -> Either c b
+mapLeft (Left x) f = Left (f x)
+mapLeft (Right y) _ = Right y
 
+mapLeft' :: (b -> c) -> Either b d -> Either c d
+mapLeft' f = left (arr f)
