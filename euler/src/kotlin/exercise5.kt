@@ -39,7 +39,7 @@ fun findLCM3(values: ArrayList<Int>): Int {
         null -> return 1
         else -> {
             val newValues = values.map {funkyDivide(it, smallestNo1)}
-            return smallestNo1 * findLCM2(ArrayList(newValues))       
+            return smallestNo1 * findLCM3(ArrayList(newValues))       
         }
     }
 }    
