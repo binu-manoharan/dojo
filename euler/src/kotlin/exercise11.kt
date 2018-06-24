@@ -1,10 +1,29 @@
 fun main(args: Array<String>) {
 	val intGrid: List<List<Int>> = grid().map {it.map {it.toInt()}}
-	println(getZippedList(intGrid.get(0), intGrid.get(1), intGrid.get(2), intGrid.get(3)))
+	val listOfAll4Combinations: List<List<Int>> = getAllHorizontalList(intGrid) + getAllVerticalList(intGrid) + getAllDiagonal(intGrid) + getAllDiagonal(reverseGrid(intGrid))
+	val reducedValues = listOfAll4Combinations.map {it.reduce {prod, i -> prod * i}}
+//	val reducedValues = listOfAll4Combinations.map {x -> x.fold (1) {prod, i -> prod * i}}
+	println(reducedValues.max())
 }
 
-fun getVerticalList(grid: List<List<Int>>) {
-	
+fun reverseGrid(grid: List<List<Int>>): List<List<Int>> = grid.map { it.asReversed() }
+
+fun getAllDiagonal(grid: List<List<Int>>): List<List<Int>> = getDiagonal(grid.windowed(4)).dropLast(1)
+
+fun getDiagonal(windowedGrid: List<List<List<Int>>>): List<List<Int>> {
+	val fourRows = windowedGrid.firstOrNull()
+	return if (fourRows != null)
+	getZippedList(fourRows.get(0), fourRows.get(1).drop(1), fourRows.get(2).drop(2), fourRows.get(3).drop(3)) + getDiagonal(windowedGrid.drop(1))
+	else listOf(listOf<Int>())
+}
+
+fun getAllVerticalList(grid: List<List<Int>>) = getVerticalList(grid.windowed(4)).dropLast(1) // last element is an empty list
+
+fun getVerticalList(windowedGrid: List<List<List<Int>>>): List<List<Int>> {
+	val fourRows = windowedGrid.firstOrNull()
+	return if (fourRows != null)
+	getZippedList(fourRows.get(0), fourRows.get(1), fourRows.get(2), fourRows.get(3)) + getVerticalList(windowedGrid.drop(1))
+	else listOf(listOf<Int>())
 }
 
 fun getZippedList(
@@ -12,16 +31,16 @@ fun getZippedList(
 		row2: List<Int>,
 		row3: List<Int>,
 		row4: List<Int>
-) = row1.zip(row2)
+): List<List<Int>> = row1.zip(row2)
 		.map { pairToList(it) }
 		.zip(row3.zip(row4).map { pairToList(it) })
 		.map { it.first + it.second }
 
 fun pairToList(p: Pair<Int, Int>) = p.toList()
 
-fun getAllHorizontalList(grid: List<List<Int>>) = grid.map {getHorizontalList(it)}
+fun getAllHorizontalList(grid: List<List<Int>>): List<List<Int>> = grid.map {getHorizontalList(it)}.reduce {acc, i -> acc + i}
 
-fun getHorizontalList(nums: List<Int>) = nums.windowed(4)
+fun getHorizontalList(nums: List<Int>): List<List<Int>> = nums.windowed(4)
 
 
 fun grid(): List<List<String>> = listOf(
