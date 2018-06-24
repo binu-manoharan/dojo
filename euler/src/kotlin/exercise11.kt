@@ -1,7 +1,28 @@
 fun main(args: Array<String>) {
-	val intGrid = grid().map {it.map {it.toInt()}}
-	// println(intGrid)
+	val intGrid: List<List<Int>> = grid().map {it.map {it.toInt()}}
+	println(getZippedList(intGrid.get(0), intGrid.get(1), intGrid.get(2), intGrid.get(3)))
 }
+
+fun getVerticalList(grid: List<List<Int>>) {
+	
+}
+
+fun getZippedList(
+		row1: List<Int>,
+		row2: List<Int>,
+		row3: List<Int>,
+		row4: List<Int>
+) = row1.zip(row2)
+		.map { pairToList(it) }
+		.zip(row3.zip(row4).map { pairToList(it) })
+		.map { it.first + it.second }
+
+fun pairToList(p: Pair<Int, Int>) = p.toList()
+
+fun getAllHorizontalList(grid: List<List<Int>>) = grid.map {getHorizontalList(it)}
+
+fun getHorizontalList(nums: List<Int>) = nums.windowed(4)
+
 
 fun grid(): List<List<String>> = listOf(
 listOf("08", "02", "22", "97", "38", "15", "00", "40", "00", "75", "04", "05", "07", "78", "52", "12", "50", "77", "91", "08"),
