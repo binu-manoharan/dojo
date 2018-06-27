@@ -1,9 +1,19 @@
-module SmashTheCode where
+module SmashTheCode (
+  Block(..),
+  dropBlockInColumn,
+  placeBlockInColumn,
+  parseGrid,
+  NoSpaceInGrid(..),
+  renderGrid,
+  applyGravity,
+  applyGravityToColumn,
+  collapseGridAndScore,
+  CollapseIterationResult(..)
+  ) where
 
 import Data.Array
 import Data.List
 import Cell
-import Control.Arrow
 
 data Block = Block {
   cellBottom :: Colour,
@@ -26,9 +36,7 @@ parseGrid inputLines = Grid {internalArray = twoDArray}
         width = length $ head inputLines
 
 renderGrid :: Grid -> [String]
-renderGrid grid = let internalArray' = internalArray grid
-                      indices' = indices internalArray'
-                      bounds' = bounds (internalArray grid)
+renderGrid grid = let bounds' = bounds (internalArray grid)
                       upperBound = snd bounds' -- TODO Add functions to get height and width
                       height = snd upperBound
                       rowNumbers = [0..height]
@@ -57,7 +65,7 @@ data Column = Column [Cell] deriving (Show)
 applyGravityToColumn :: Grid -> Int -> Grid
 applyGravityToColumn grid colIndex = let
 
-  column@(Column columnValues) = getGridColumn grid colIndex
+  (Column columnValues) = getGridColumn grid colIndex
 
   padding = replicate ((length columnValues) - (length nonEmptyCellValues)) Cell {value = Empty}
   nonEmptyCellValues = filter (not . isEmptyCell) columnValues
@@ -79,14 +87,11 @@ getGridColumn grid colIndex = let internalArray' = internalArray grid
 getGridHeight :: Grid -> Int
 getGridHeight grid = (+) 1 $ snd $ snd $ bounds (internalArray grid)
 
--- data GridOrException = Grid | NoSpaceInGrid
 data NoSpaceInGrid = NoSpaceInGrid deriving (Show, Eq)
 
 placeBlockInColumn :: Grid -> Int -> Block -> Either Grid NoSpaceInGrid
 placeBlockInColumn grid colIndex block =
-  let internalArray' = internalArray grid
-      gridColumn = getGridColumn grid colIndex
-      indicesToUpdate = [(colIndex, 0), (colIndex, 1)]
+  let indicesToUpdate = [(colIndex, 0), (colIndex, 1)]
       cellsToInsert = map colourCell [
         cellTop block, cellBottom block
         ]
@@ -108,11 +113,14 @@ updateGrid grid updates = let oldInternalArray = internalArray grid
 
 dropBlockInColumn :: Grid -> Int -> Block -> Either Grid NoSpaceInGrid
 dropBlockInColumn grid colIndex block =
-  mapLeft' applyGravity (placeBlockInColumn grid colIndex block)
+  mapLeft (placeBlockInColumn grid colIndex block) applyGravity 
 
 mapLeft :: Either a b -> (a -> c) -> Either c b
 mapLeft (Left x) f = Left (f x)
 mapLeft (Right y) _ = Right y
 
-mapLeft' :: (b -> c) -> Either b d -> Either c d
-mapLeft' f = left (arr f)
+data CollapseIterationResult =
+  CollapseIterationResult { grid :: Grid, score :: Int }
+
+collapseGridAndScore :: Grid -> CollapseIterationResult
+collapseGridAndScore _ = undefined

@@ -29,6 +29,7 @@ readCell char = Cell {
       '3' -> ColourValue Red
       '4' -> ColourValue Yellow
       '5' -> ColourValue Purple
+      x -> error ("Unrecognised cell: " ++ [x])
       }
 
 parseArray :: [String] -> [((Int, Int), Cell)]

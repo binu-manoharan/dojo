@@ -98,3 +98,20 @@ main = hspec $ do
             ]
       let gridWithBlockDropped = dropBlockInColumn inputGrid 0 block
       gridWithBlockDropped `shouldBe` expectedOutput
+
+    it "should place block in the column and apply gravity1" $ do
+      let inputGrid = parseGrid [
+            "....",
+            "....",
+            "11..",
+            "11.."
+            ]
+          expectedOutput = parseGrid [
+            "....",
+            "....",
+            "....",
+            "...."
+            ]
+      let result = collapseGridAndScore inputGrid
+      grid result `shouldBe` expectedOutput
+      score result `shouldBe` 40
