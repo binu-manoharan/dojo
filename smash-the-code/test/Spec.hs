@@ -1,6 +1,7 @@
 import Test.Hspec
 import SmashTheCode
 import Cell
+import Data.Set (fromList)
 
 main :: IO ()
 main = hspec $ do
@@ -99,7 +100,7 @@ main = hspec $ do
       let gridWithBlockDropped = dropBlockInColumn inputGrid 0 block
       gridWithBlockDropped `shouldBe` expectedOutput
 
-    it "should place block in the column and apply gravity1" $ do
+    it "should collapse matching colours in the grid 1" $ do
       let inputGrid = parseGrid [
             "....",
             "....",
@@ -114,4 +115,32 @@ main = hspec $ do
             ]
       let result = collapseGridAndScore inputGrid
       grid result `shouldBe` expectedOutput
-      score result `shouldBe` 40
+
+    it "should collapse matching colours in the grid 2" $ do
+      let inputGrid = parseGrid [
+            "....",
+            ".2..",
+            "11..",
+            "11.."
+            ]
+          expectedOutput = parseGrid [
+            "....",
+            ".2..",
+            "....",
+            "...."
+            ]
+      let result = collapseGridAndScore inputGrid
+      grid result `shouldBe` expectedOutput
+
+    it "should collapse matching colours in the grid 2" $ do
+      let inputGrid = parseGrid [
+            "....",
+            ".2..",
+            "11..",
+            "11.."
+            ]
+          startingCoordinate = (0, 3)
+      let result = getCoordinatesToCollapse startingCoordinate inputGrid
+      result `shouldBe` CoordinatesToCollapse (fromList [(0, 3), (1, 3), (0, 2), (1, 2)])
+
+

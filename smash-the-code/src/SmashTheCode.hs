@@ -8,12 +8,16 @@ module SmashTheCode (
   applyGravity,
   applyGravityToColumn,
   collapseGridAndScore,
-  CollapseIterationResult(..)
+  CollapseIterationResult(..),
+  Coordinate,
+  CoordinatesToCollapse(..),
+  getCoordinatesToCollapse
   ) where
 
 import Data.Array
 import Data.List
 import Cell
+import Data.Set (Set)
 
 data Block = Block {
   cellBottom :: Colour,
@@ -49,7 +53,6 @@ renderRow grid rowNum = let allIndices = indices (internalArray grid)
                             renderedCellValues = map renderCell cellValues
                         in renderedCellValues
 
--- TODO Use coordinates
 indicesForRow :: [(Int, Int)] -> Int -> [(Int, Int)]
 indicesForRow allIndices rowIndex = filter (\x -> snd x == rowIndex) allIndices
 
@@ -120,7 +123,26 @@ mapLeft (Left x) f = Left (f x)
 mapLeft (Right y) _ = Right y
 
 data CollapseIterationResult =
-  CollapseIterationResult { grid :: Grid, score :: Int }
+  CollapseIterationResult { grid :: Grid }
 
 collapseGridAndScore :: Grid -> CollapseIterationResult
-collapseGridAndScore _ = undefined
+collapseGridAndScore grid =
+  let
+    oldInternalArray = internalArray grid
+    oldValues = elems oldInternalArray
+    newValues = map convertCellToEmptyCell oldValues
+    updates = zip (indices oldInternalArray) newValues :: [((Int, Int), Cell)]
+    newInternalArray = oldInternalArray // updates
+  in
+    CollapseIterationResult { grid = Grid {internalArray = newInternalArray} }
+
+convertCellToEmptyCell :: Cell -> Cell
+convertCellToEmptyCell _ = Cell { value = Empty }
+
+type Coordinate = (Int, Int)
+
+data CoordinatesToCollapse = CoordinatesToCollapse (Set Coordinate) | NothingToCollapse
+                             deriving (Show, Eq)
+
+getCoordinatesToCollapse :: Coordinate -> Grid -> CoordinatesToCollapse
+getCoordinatesToCollapse = undefined

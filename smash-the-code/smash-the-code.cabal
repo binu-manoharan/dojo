@@ -1,0 +1,68 @@
+-- This file has been generated from package.yaml by hpack version 0.20.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: cf90e5f817b74c3217bf09521bf2e529956c0fd75518938b72521c6ba7315c46
+
+name:           smash-the-code
+version:        0.1.0.0
+description:    Please see the README on Github at <https://github.com/githubuser/smash-the-code#readme>
+homepage:       https://github.com/githubuser/smash-the-code#readme
+bug-reports:    https://github.com/githubuser/smash-the-code/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2018 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+
+extra-source-files:
+    ChangeLog.md
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/smash-the-code
+
+library
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
+  hs-source-dirs:
+      src
+  build-depends:
+                base >=4.7 && <5
+              , array
+              , containers
+  exposed-modules:
+      Cell,
+      SmashTheCode
+  other-modules:
+      Paths_smash_the_code
+  default-language: Haskell2010
+
+executable smash-the-code-exe
+  main-is: Main.hs
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
+  build-depends:
+      base >=4.7 && <5
+    , smash-the-code
+  other-modules:
+      Paths_smash_the_code
+  default-language: Haskell2010
+
+test-suite smash-the-code-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs:
+      test
+  ghc-options: -Wall
+  build-depends:
+      base >=4.7 && <5
+              , smash-the-code
+              , hspec
+              , containers
+  other-modules:
+      Paths_smash_the_code
+  default-language: Haskell2010
