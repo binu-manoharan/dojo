@@ -140,7 +140,7 @@ main = hspec $ do
             "11.."
             ]
           startingCoordinate = (0, 3)
-      let result = getCoordinatesToCollapse startingCoordinate inputGrid
+      let result = getCoordinatesToCollapse inputGrid startingCoordinate
       result `shouldBe` CoordinatesToCollapse (fromList [(0, 3), (1, 3), (0, 2), (1, 2)])
 
 

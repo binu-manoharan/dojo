@@ -16,6 +16,9 @@ colourCell c = Cell { value = ColourValue c }
 isEmptyCell :: Cell -> Bool
 isEmptyCell c = (value c) == Empty
 
+isColourCell :: Cell -> Bool
+isColourCell c = (value c) /= Empty && (value c) /= Skull
+
 parseCell :: Char -> Int -> Int -> ((Int, Int), Cell)
 parseCell char rowNum colNum = ((colNum, rowNum), (readCell char))
 

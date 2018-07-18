@@ -105,7 +105,7 @@ placeBlockInColumn grid colIndex block =
         Left $ updateGrid grid updates
      else Right NoSpaceInGrid
 
-getGridCell :: Grid -> (Int, Int) -> Cell
+getGridCell :: Grid -> Coordinate -> Cell
 getGridCell grid (x, y) = let internalArray' = internalArray grid
                           in internalArray' ! (x, y)
 
@@ -144,5 +144,30 @@ type Coordinate = (Int, Int)
 data CoordinatesToCollapse = CoordinatesToCollapse (Set Coordinate) | NothingToCollapse
                              deriving (Show, Eq)
 
-getCoordinatesToCollapse :: Coordinate -> Grid -> CoordinatesToCollapse
-getCoordinatesToCollapse = undefined
+getCoordinatesToCollapse :: Grid -> Coordinate -> CoordinatesToCollapse
+getCoordinatesToCollapse grid coordinate = undefined
+
+getMatchingColourNeighbours :: Grid -> Coordinate -> [Coordinate]
+getMatchingColourNeighbours grid coordinate = let startingCell = getGridCell grid coordinate
+                                              in if (isColourCell startingCell) then
+                                                   getNearbyCoordinatesInGrid grid coordinate -- filter then recursively call getMatchingColourNeightbours on it may be?
+                                                   else error("Expecting a cell with colour.")
+                                                   
+
+
+
+getNearbyCoordinatesInGrid :: Grid -> Coordinate -> [Coordinate]
+getNearbyCoordinatesInGrid grid coordinate =
+  filter (isInsideGrid grid) (getNearbyCoordinates coordinate)
+
+getNearbyCoordinates :: Coordinate -> [Coordinate]
+getNearbyCoordinates (x, y) = [(x - 1, y), (x, y - 1), (x + 1, y), (x, y + 1)]
+
+isInsideGrid :: Grid -> Coordinate -> Bool
+isInsideGrid grid (x, y) = let ((minX, minY), (maxX, maxY)) = bounds (internalArray grid)
+                           in minX <= x && x <= maxX && minY <= y && y <= maxY
+
+                              
+                               
+
+  
