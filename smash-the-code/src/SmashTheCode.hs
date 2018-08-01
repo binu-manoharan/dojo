@@ -11,13 +11,14 @@ module SmashTheCode (
   CollapseIterationResult(..),
   Coordinate,
   CoordinatesToCollapse(..),
-  getCoordinatesToCollapse
+  getCoordinatesToCollapse,
+  getCoordinatesInGridWithColour
   ) where
 
 import Data.Array
 import Data.List
 import Cell
-import Data.Set (Set)
+import Data.Set (Set, fromList)
 
 data Block = Block {
   cellBottom :: Colour,
@@ -147,25 +148,35 @@ data CoordinatesToCollapse = CoordinatesToCollapse (Set Coordinate) | NothingToC
 getCoordinatesToCollapse :: Grid -> Coordinate -> CoordinatesToCollapse
 getCoordinatesToCollapse grid coordinate = undefined
 
-getMatchingColourNeighbours :: Grid -> Coordinate -> [Coordinate]
-getMatchingColourNeighbours grid coordinate = let startingCell = getGridCell grid coordinate
-                                              in if (isColourCell startingCell) then
-                                                   getNearbyCoordinatesInGrid grid coordinate -- filter then recursively call getMatchingColourNeightbours on it may be?
-                                                   else error("Expecting a cell with colour.")
+getCoordinatesInGridWithColour :: Grid -> Colour -> Set Coordinate
+getCoordinatesInGridWithColour grid colour =
+  let allIndices = indices (internalArray grid)
+  in fromList $ filter (hasCellOfColour grid colour) allIndices
+
+hasCellOfColour :: Grid -> Colour -> Coordinate -> Bool
+hasCellOfColour grid colour coordinate = let internalArray' = internalArray grid
+                                             cell = internalArray' ! coordinate
+                                         in cell == colourCell colour
+
+-- getMatchingColourNeighbours :: Grid -> Coordinate -> [Coordinate]
+-- getMatchingColourNeighbours grid coordinate = let startingCell = getGridCell grid coordinate
+--                                               in if (isColourCell startingCell) then
+--                                                    getNearbyCoordinatesInGrid grid coordinate -- filter then recursively call getMatchingColourNeightbours on it may be?
+--                                                    else error("Expecting a cell with colour.")
                                                    
 
 
 
-getNearbyCoordinatesInGrid :: Grid -> Coordinate -> [Coordinate]
-getNearbyCoordinatesInGrid grid coordinate =
-  filter (isInsideGrid grid) (getNearbyCoordinates coordinate)
+-- getNearbyCoordinatesInGrid :: Grid -> Coordinate -> [Coordinate]
+-- getNearbyCoordinatesInGrid grid coordinate =
+--   filter (isInsideGrid grid) (getNearbyCoordinates coordinate)
 
-getNearbyCoordinates :: Coordinate -> [Coordinate]
-getNearbyCoordinates (x, y) = [(x - 1, y), (x, y - 1), (x + 1, y), (x, y + 1)]
+-- getNearbyCoordinates :: Coordinate -> [Coordinate]
+-- getNearbyCoordinates (x, y) = [(x - 1, y), (x, y - 1), (x + 1, y), (x, y + 1)]
 
-isInsideGrid :: Grid -> Coordinate -> Bool
-isInsideGrid grid (x, y) = let ((minX, minY), (maxX, maxY)) = bounds (internalArray grid)
-                           in minX <= x && x <= maxX && minY <= y && y <= maxY
+-- isInsideGrid :: Grid -> Coordinate -> Bool
+-- isInsideGrid grid (x, y) = let ((minX, minY), (maxX, maxY)) = bounds (internalArray grid)
+--                            in minX <= x && x <= maxX && minY <= y && y <= maxY
 
                               
                                
