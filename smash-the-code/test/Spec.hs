@@ -160,7 +160,9 @@ main = hspec $ do
             "11.1",
             "11.1"
             ]
-      let result = undefined
+
+      let allBlueNodes = fromList [(0, 3), (1, 3), (0, 2), (1, 2), (3, 0), (3, 1), (3, 2), (3, 3)]
+          result = getClusters allBlueNodes
       result `shouldBe` fromList [
         fromList [(0, 3), (1, 3), (0, 2), (1, 2)],
         fromList [(3, 0), (3, 1), (3, 2), (3, 3)]

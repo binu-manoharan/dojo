@@ -12,7 +12,8 @@ module SmashTheCode (
   Coordinate,
   CoordinatesToCollapse(..),
   getCoordinatesToCollapse,
-  getCoordinatesInGridWithColour
+  getCoordinatesInGridWithColour,
+  getClusters
   ) where
 
 import Data.Array
@@ -158,12 +159,17 @@ hasCellOfColour grid colour coordinate = let internalArray' = internalArray grid
                                              cell = internalArray' ! coordinate
                                          in cell == colourCell colour
 
+getClusters :: Set Coordinate -> Set (Set Coordinate)
+getClusters coordinates = let coordinatesList = elems coordinates
+                            -- starting from each node recurse in every direction but keep a record of visited nodes.
+                          in undefined
+
 -- getMatchingColourNeighbours :: Grid -> Coordinate -> [Coordinate]
 -- getMatchingColourNeighbours grid coordinate = let startingCell = getGridCell grid coordinate
 --                                               in if (isColourCell startingCell) then
 --                                                    getNearbyCoordinatesInGrid grid coordinate -- filter then recursively call getMatchingColourNeightbours on it may be?
 --                                                    else error("Expecting a cell with colour.")
-                                                   
+
 
 
 
