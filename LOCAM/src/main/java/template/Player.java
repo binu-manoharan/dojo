@@ -4,6 +4,7 @@ import cg.binu.input.Hero;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
 
 /**
  * Auto-generated code below aims at helping you parse
