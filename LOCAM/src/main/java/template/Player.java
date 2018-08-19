@@ -1,3 +1,8 @@
+package template;
+
+import cg.binu.input.Hero;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -11,13 +16,19 @@ class Player {
 
         // game loop
         while (true) {
+            final ArrayList<Hero> heroes = new ArrayList<>();
+            // i = 0 is me, 1 is opponent
             for (int i = 0; i < 2; i++) {
                 int playerHealth = in.nextInt();
                 int playerMana = in.nextInt();
                 int playerDeck = in.nextInt();
                 int playerRune = in.nextInt();
-
+                heroes.add(new Hero(playerHealth, playerMana));
             }
+
+            final Hero me = heroes.get(0);
+            final Hero opponent = heroes.get(1);
+
             int opponentHand = in.nextInt();
             int cardCount = in.nextInt();
             for (int i = 0; i < cardCount; i++) {
