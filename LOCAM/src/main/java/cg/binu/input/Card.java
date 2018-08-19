@@ -55,4 +55,16 @@ public class Card {
     public String getName() {
         return name;
     }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
 }
