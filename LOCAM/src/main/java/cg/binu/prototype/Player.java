@@ -1,9 +1,5 @@
 package cg.binu.prototype;
 
-import cg.binu.prototype.Action;
-import cg.binu.prototype.Card;
-import cg.binu.prototype.SummonCreatures;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
