@@ -1,9 +1,9 @@
-package cg.binu.prototype;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
 class Player {
 
     public static void main(String args[]) {
@@ -11,21 +11,15 @@ class Player {
 
         // game loop
         while (true) {
+            for (int i = 0; i < 2; i++) {
+                int playerHealth = in.nextInt();
+                int playerMana = in.nextInt();
+                int playerDeck = in.nextInt();
+                int playerRune = in.nextInt();
 
-            int playerHealth1 = in.nextInt();
-            int playerMana1 = in.nextInt();
-            int playerDeck1 = in.nextInt();
-            int playerRune1 = in.nextInt();
-
-            int playerHealth2 = in.nextInt();
-            int playerMana2 = in.nextInt();
-            int playerDeck2 = in.nextInt();
-            int playerRune2 = in.nextInt();
-
+            }
             int opponentHand = in.nextInt();
             int cardCount = in.nextInt();
-
-            List<Card> allCardsInPlay = new ArrayList<>();
             for (int i = 0; i < cardCount; i++) {
                 int cardNumber = in.nextInt();
                 int instanceId = in.nextInt();
@@ -38,13 +32,12 @@ class Player {
                 int myHealthChange = in.nextInt();
                 int opponentHealthChange = in.nextInt();
                 int cardDraw = in.nextInt();
-                allCardsInPlay.add(new Card(cardNumber, instanceId, location, cardType, cost, attack, defense, abilities, myHealthChange, opponentHealthChange, cardDraw));
             }
-            final Action action = new SummonCreatures();
+
             // Write an action using System.out.println()
             // To debug: System.err.println("Debug messages...");
-            action.generateMovesForThisTurn(allCardsInPlay, playerMana1);
-            System.out.println(action.toString());
+
+            System.out.println("PASS");
         }
     }
 }

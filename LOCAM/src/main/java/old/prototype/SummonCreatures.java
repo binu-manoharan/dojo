@@ -1,4 +1,4 @@
-package cg.binu.prototype;
+package old.prototype;
 
 import java.util.List;
 import java.util.Random;
