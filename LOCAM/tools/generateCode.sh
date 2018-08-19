@@ -15,7 +15,7 @@ playerFilePath=$PROJ_HOME/$PLAYER_FILE
 srcMainPath=$PROJ_HOME/$SRC_MAIN
 
 cat $playerFilePath > $outFilePath
-#sed -i '1,2d' $outFilePath
+sed -i '1,2d' $outFilePath
 for i in `find $srcMainPath -type f | grep java$`
 do
     echo "File names "$i

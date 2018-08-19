@@ -24,4 +24,18 @@ public class MaxValueDrafterTest {
         final int choice = maxValueDrafter.draft(draftChoice);
         assertThat("Beavrat has max value.", choice, is(0));
     }
+
+    @Test
+    public void should_draft_card3() throws Exception {
+        final Card card1 = CardFactory.get(79);
+        final Card card2 = CardFactory.get(106);
+        final Card card3 = CardFactory.get(96);
+
+        final List<Card> cards = asList(card1, card2, card3);
+        final DraftChoice draftChoice = new DraftChoice(cards);
+
+        final Drafter maxValueDrafter = new MaxValueDrafter();
+        final int choice = maxValueDrafter.draft(draftChoice);
+        assertThat("card3 has max value.", choice, is(2));
+    }
 }

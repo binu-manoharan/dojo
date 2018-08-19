@@ -27,6 +27,6 @@ public class MaxValueDrafter implements Drafter {
             return 5;
         }
 
-        return card.getAttack() + card.getDefense() / cost;
+        return (card.getAttack() + card.getDefense()) / (double) cost;
     }
 }

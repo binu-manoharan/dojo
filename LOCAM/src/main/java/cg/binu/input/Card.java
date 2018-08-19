@@ -2,7 +2,8 @@ package cg.binu.input;
 
 public class Card {
     private final int number;
-    private final String name;
+    private final int instanceId;
+    private final int location;
     private final CardType type;
     private final int cost;
     private final int attack;
@@ -14,7 +15,8 @@ public class Card {
 
     public Card(
             int number,
-            String name,
+            int instanceId,
+            int location,
             CardType type,
             int cost,
             int attack,
@@ -25,7 +27,8 @@ public class Card {
             int cardDraw
     ) {
         this.number = number;
-        this.name = name;
+        this.instanceId = instanceId;
+        this.location = location;
         this.type = type;
         this.cost = cost;
         this.attack = attack;
@@ -43,17 +46,18 @@ public class Card {
 
         Card card = (Card) o;
 
-        return number == card.number;
+        if (number != card.number) return false;
+        if (instanceId != card.instanceId) return false;
+        return location == card.location;
 
     }
 
     @Override
     public int hashCode() {
-        return number;
-    }
-
-    public String getName() {
-        return name;
+        int result = number;
+        result = 31 * result + instanceId;
+        result = 31 * result + location;
+        return result;
     }
 
     public int getCost() {

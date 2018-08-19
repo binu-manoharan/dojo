@@ -16,7 +16,7 @@ public class Hero {
         return health;
     }
 
-    int getMana() {
+    public int getMana() {
         return mana;
     }
 }
