@@ -79,4 +79,8 @@ public class Card {
     public void setInstanceId(int instanceId) {
         this.instanceId = instanceId;
     }
+
+    public int getLocation() {
+        return location;
+    }
 }

@@ -6,8 +6,15 @@ import cg.binu.draft.MaxValueDrafter;
 import cg.binu.input.Card;
 import cg.binu.input.CardType;
 import cg.binu.input.Hero;
+import cg.binu.summon.CardAction;
+import cg.binu.summon.MaxValueSummoner;
+import cg.binu.summon.Summoner;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 /**
  * Auto-generated code below aims at helping you parse
@@ -18,6 +25,8 @@ class Player {
     public static void main(String args[]) {
         Scanner in = new Scanner(System.in);
         final Drafter drafter = new MaxValueDrafter();
+        final Summoner summoner = new MaxValueSummoner();
+
         // game loop
         while (true) {
             final ArrayList<Hero> heroes = new ArrayList<>();
@@ -64,7 +73,19 @@ class Player {
 
                 System.out.println("PICK " + draft);
             } else {
-                System.out.println("PASS");
+                final List<Card> cardsInHand = allCardsInPlay.stream()
+                        .filter(card -> card.getLocation() == 0)
+                        .collect(Collectors.toList());
+
+                final List<CardAction> summonActions = summoner.summon(cardsInHand, me.getMana());
+
+                AtomicReference<String> summonAction = new AtomicReference<>();
+                summonAction.set("");
+                summonActions.stream()
+                        .map(CardAction::toString)
+                        .forEach(summonString -> summonAction.set(summonAction.get() + summonString));
+
+                System.out.println(summonAction.get());
             }
         }
     }

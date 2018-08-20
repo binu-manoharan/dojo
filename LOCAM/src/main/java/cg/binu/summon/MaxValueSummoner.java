@@ -3,16 +3,12 @@ package cg.binu.summon;
 import cg.binu.input.Card;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class MaxValueSummoner implements Summoner {
     @Override
     public List<CardAction> summon(List<Card> cardsInHand, int maxMana) {
-        if (maxMana == 0) {
-            return Collections.emptyList();
-        }
 
         final List<Card> playableCards = cardsInHand.stream()
                 .filter(card -> card.getCost() <= maxMana)
