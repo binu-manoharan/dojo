@@ -51,7 +51,7 @@ public class GuardAndFaceAttacker implements Attacker {
         }
 
         for (Card opponentCard : opponentCardsAliveWithGuard) {
-            int health = opponentCard.getHealth();
+            int defense  = opponentCard.getDefense();
 
             if (myCardsWithoutAction.size() == 0) {
                 break;
@@ -62,9 +62,9 @@ public class GuardAndFaceAttacker implements Attacker {
                     final int myCardAttack = myCard.getAttack();
                     cardActions.add(new AttackAction(myCard, opponentCard));
                     myCardsWithNewlyAssignedAction.add(myCard);
-                    health -= myCardAttack;
+                    defense -= myCardAttack;
 
-                    if (health < 0) {
+                    if (defense < 0) {
                         break;
                     }
                 }

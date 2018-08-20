@@ -138,4 +138,28 @@ public class GuardAndFaceAttackerTest {
                 is(getCardActionStrings(singletonList(new AttackAction(murglord, gargantua))))
         );
     }
+
+    @Test
+    public void should_attack_guard_mob_blah() throws Exception {
+        final Attacker guardAndFaceAttacker = new GuardAndFaceAttacker();
+        final Card murglord = CardFactory.getWithInstanceId(70, 1);
+        final Card slimer = CardFactory.getWithInstanceId(1, 3);
+        final List<Card> myCardsOnBoard = Arrays.asList(murglord, slimer);
+
+        final Card gargantua = CardFactory.getWithInstanceId(114, 2);
+        final List<Card> opponentCardsOnBoard = singletonList(gargantua);
+
+        final List<CardAction> attacks = guardAndFaceAttacker.getAttacks(myCardsOnBoard, opponentCardsOnBoard);
+        assertThat("There should be one attack", attacks.size(), is(2));
+        assertThat(
+                "The action is to attack guard mob.",
+                attacks.get(0).toString(),
+                is(getCardActionStrings(singletonList(new AttackAction(murglord, gargantua))))
+        );
+        assertThat(
+                "The action is to attack guard mob.",
+                attacks.get(1).toString(),
+                is(getCardActionStrings(singletonList(new AttackAction(slimer, gargantua))))
+        );
+    }
 }
