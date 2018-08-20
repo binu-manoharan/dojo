@@ -7,8 +7,10 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cg.binu.summon.CardActions.getCardActionStrings;
+import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class MaxValueSummonerTest {
 
@@ -54,11 +56,16 @@ public class MaxValueSummonerTest {
         final List<Card> cardsInHand = new ArrayList<>();
         cardsInHand.add(CardFactory.getWithInstanceId(1, 1));
         cardsInHand.add(CardFactory.getWithInstanceId(2, 2));
-        cardsInHand.add(CardFactory.getWithInstanceId(3, 3));
+        final Card beavrat = CardFactory.getWithInstanceId(3, 3);
+        cardsInHand.add(beavrat);
 
         final List<CardAction> cardActions = summoner.summon(cardsInHand, MANA_1);
         assertThat("There is one action.", cardActions.size(), is(1));
-        assertThat("The action is summon 3.", cardActions.get(0).toString(), is("SUMMON 3;"));
+        assertThat(
+                "The action is summon 3.",
+                cardActions.get(0).toString(),
+                is(getCardActionStrings(singletonList(new CardAction(beavrat, Action.SUMMON))))
+        );
     }
 
     @Test
@@ -66,10 +73,14 @@ public class MaxValueSummonerTest {
         final Summoner summoner = new MaxValueSummoner();
         final List<Card> cardsInHand = new ArrayList<>();
         cardsInHand.add(CardFactory.getWithInstanceId(3, 1));
-        cardsInHand.add(CardFactory.getWithInstanceId(9, 2));
+        final Card corruptedBeavrat = CardFactory.getWithInstanceId(9, 2);
+        cardsInHand.add(corruptedBeavrat);
 
         final List<CardAction> cardActions = summoner.summon(cardsInHand, MANA_3);
-        assertThat("There is one action.", cardActions.size(), is(1));
-        assertThat("The action is summon 2.", cardActions.get(0).toString(), is("SUMMON 2;"));
+        assertThat("There is one action.", cardActions.size(), is(1));assertThat(
+                "The action is summon 2.",
+                cardActions.get(0).toString(),
+                is(getCardActionStrings(singletonList(new CardAction(corruptedBeavrat, Action.SUMMON))))
+        );
     }
 }
