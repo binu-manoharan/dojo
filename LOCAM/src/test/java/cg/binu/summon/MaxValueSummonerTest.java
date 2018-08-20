@@ -2,6 +2,7 @@ package cg.binu.summon;
 
 import cg.binu.actions.Action;
 import cg.binu.actions.CardAction;
+import cg.binu.actions.SummonAction;
 import cg.binu.input.Card;
 import cg.binu.input.CardFactory;
 import org.junit.Test;
@@ -66,7 +67,7 @@ public class MaxValueSummonerTest {
         assertThat(
                 "The action is summon 3.",
                 cardActions.get(0).toString(),
-                is(getCardActionStrings(singletonList(new CardAction(beavrat, Action.SUMMON))))
+                is(getCardActionStrings(singletonList(new SummonAction(beavrat))))
         );
     }
 
@@ -82,7 +83,7 @@ public class MaxValueSummonerTest {
         assertThat("There is one action.", cardActions.size(), is(1));assertThat(
                 "The action is summon 2.",
                 cardActions.get(0).toString(),
-                is(getCardActionStrings(singletonList(new CardAction(corruptedBeavrat, Action.SUMMON))))
+                is(getCardActionStrings(singletonList(new SummonAction(corruptedBeavrat))))
         );
     }
 }
