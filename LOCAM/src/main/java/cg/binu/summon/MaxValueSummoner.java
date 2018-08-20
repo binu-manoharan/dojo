@@ -1,7 +1,7 @@
 package cg.binu.summon;
 
-import cg.binu.actions.Action;
 import cg.binu.actions.CardAction;
+import cg.binu.actions.SummonAction;
 import cg.binu.input.Card;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class MaxValueSummoner implements Summoner {
             final int cardCost = card.getCost();
 
             if (cardCost <= availableMana) {
-                summonActions.add(new CardAction(card, Action.SUMMON));
+                summonActions.add(new SummonAction(card));
                 availableMana -= cardCost;
             }
         }
