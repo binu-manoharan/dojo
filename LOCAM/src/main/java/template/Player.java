@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
  **/
 class Player {
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IllegalAccessException {
         Scanner in = new Scanner(System.in);
         final Drafter drafter = new MaxValueCreatureDrafter();
         final Summoner summoner = new MaxValueSummoner();
@@ -65,7 +65,16 @@ class Player {
                 int opponentHealthChange = in.nextInt();
                 int cardDraw = in.nextInt();
 
-                final Card card = new Card(cardNumber, instanceId, location, CardType.CREATURES, cost, attack, defense, abilities, myHealthChange, opponentHealthChange, cardDraw);
+                CardType migratedCardType;
+                switch (cardType) {
+                    case 0: migratedCardType = CardType.CREATURES; break;
+                    case 1: migratedCardType = CardType.ITEM_GREEN; break;
+                    case 2: migratedCardType = CardType.ITEM_RED; break;
+                    case 3: migratedCardType = CardType.ITEM_BLUE; break;
+                    default:
+                        throw new IllegalAccessException("Unexpected cardtype!");
+                }
+                final Card card = new Card(cardNumber, instanceId, location, migratedCardType, cost, attack, defense, abilities, myHealthChange, opponentHealthChange, cardDraw);
                 allCardsInPlay.add(card);
             }
 
