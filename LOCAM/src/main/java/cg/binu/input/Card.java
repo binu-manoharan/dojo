@@ -2,7 +2,7 @@ package cg.binu.input;
 
 public class Card {
     private final int number;
-    private final int instanceId;
+    private int instanceId;
     private final int location;
     private final CardType type;
     private final int cost;
@@ -70,5 +70,13 @@ public class Card {
 
     public int getDefense() {
         return defense;
+    }
+
+    public int getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(int instanceId) {
+        this.instanceId = instanceId;
     }
 }

@@ -172,11 +172,18 @@ public class CardFactory {
         cards.add(new Card(160, 0, 0, CardType.ITEM_BLUE, 2, 0, 0, "------", 2, -2, 0));
     }
 
-    public static Card get(int id) {
-        if (id > 0 && id <= 160) {
-            return cards.get(id - 1);
+    public static Card get(int cardNumber) {
+        if (cardNumber > 0 && cardNumber <= 160) {
+            return cards.get(cardNumber - 1);
         }
 
         throw new UnsupportedOperationException("Card with this id does not exist.");
+    }
+
+    public static Card getWithInstanceId(int cardNumber, int instanceId) {
+        final Card card = get(cardNumber);
+        card.setInstanceId(instanceId);
+
+        return card;
     }
 }
