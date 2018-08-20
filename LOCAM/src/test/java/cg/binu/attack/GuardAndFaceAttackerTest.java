@@ -99,4 +99,23 @@ public class GuardAndFaceAttackerTest {
                 is(getCardActionStrings(singletonList(new AttackAction(slimer, null))))
         );
     }
+
+    @Test
+    public void should_attack_turta_guard_mob_with_murglord() throws Exception {
+        final Attacker guardAndFaceAttacker = new GuardAndFaceAttacker();
+        final Card murglord = CardFactory.getWithInstanceId(70, 1);
+        final List<Card> myCardsOnBoard = singletonList(murglord);
+
+        final Card turta = CardFactory.getWithInstanceId(97, 2);
+        final Card caveCrab = CardFactory.getWithInstanceId(99, 2);
+        final List<Card> opponentCardsOnBoard = Arrays.asList(turta, caveCrab);
+
+        final List<CardAction> attacks = guardAndFaceAttacker.getAttacks(myCardsOnBoard, opponentCardsOnBoard);
+        assertThat("There should be one attack", attacks.size(), is(1));
+        assertThat(
+                "The action is to attack face.",
+                attacks.get(0).toString(),
+                is(getCardActionStrings(singletonList(new AttackAction(murglord, turta))))
+        );
+    }
 }

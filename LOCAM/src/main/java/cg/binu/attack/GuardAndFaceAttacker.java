@@ -24,10 +24,11 @@ public class GuardAndFaceAttacker implements Attacker {
         final ArrayList<Card> myCardsWithoutAction = new ArrayList<>();
         final ArrayList<Card> opponentCardsAliveWithGuard = new ArrayList<>();
 
+        final int numberOfOpponentCardsWithGuard = opponentCardsWithGuard.size();
         for (Card myCard : myCardsOnBoard) {
             final int myCardAttack = myCard.getAttack();
 
-            if (opponentCardsWithGuard.size() > opponentCardsWithGuardIndex) {
+            if (numberOfOpponentCardsWithGuard > opponentCardsWithGuardIndex) {
                 final Card opponentCard = opponentCardsWithGuard.get(opponentCardsWithGuardIndex);
                 if (opponentCard.getDefense() <= myCardAttack) {
                     cardActions.add(new AttackAction(myCard, opponentCard));
@@ -41,8 +42,8 @@ public class GuardAndFaceAttacker implements Attacker {
         }
 
 
-        if (opponentCardsWithGuard.size() > opponentCardsWithGuardIndex) {
-            opponentCardsAliveWithGuard.addAll(opponentCardsWithGuardIndex, opponentCardsWithGuard);
+        if (numberOfOpponentCardsWithGuard > opponentCardsWithGuardIndex) {
+            opponentCardsAliveWithGuard.addAll(opponentCardsWithGuard.subList(opponentCardsWithGuardIndex, numberOfOpponentCardsWithGuard - 1));
         }
 
         for (Card opponentCard : opponentCardsAliveWithGuard) {
