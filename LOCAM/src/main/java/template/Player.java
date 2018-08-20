@@ -1,14 +1,13 @@
 package template;
 
-import cg.binu.drafter.DraftChoice;
-import cg.binu.drafter.Drafter;
-import cg.binu.drafter.MaxValueDrafter;
+import cg.binu.draft.DraftChoice;
+import cg.binu.draft.Drafter;
+import cg.binu.draft.MaxValueDrafter;
 import cg.binu.input.Card;
 import cg.binu.input.CardType;
 import cg.binu.input.Hero;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.List;
 
 /**
  * Auto-generated code below aims at helping you parse

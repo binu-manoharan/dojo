@@ -1,4 +1,4 @@
-package cg.binu.drafter;
+package cg.binu.draft;
 
 import cg.binu.input.Card;
 import cg.binu.input.CardFactory;
