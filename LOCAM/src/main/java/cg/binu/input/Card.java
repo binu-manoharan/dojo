@@ -12,6 +12,8 @@ public class Card {
     private final int myHealthChange;
     private final int opponentHealthChange;
     private final int cardDraw;
+    private int health;
+    private int damage;
 
     public Card(
             int number,
@@ -82,5 +84,17 @@ public class Card {
 
     public int getLocation() {
         return location;
+    }
+
+    public String getAbilities() {
+        return abilities;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getDamage() {
+        return damage;
     }
 }

@@ -1,5 +1,7 @@
 package template;
 
+import cg.binu.attack.Attacker;
+import cg.binu.attack.GuardAndFaceAttacker;
 import cg.binu.draft.DraftChoice;
 import cg.binu.draft.Drafter;
 import cg.binu.draft.MaxValueDrafter;
@@ -27,6 +29,7 @@ class Player {
         Scanner in = new Scanner(System.in);
         final Drafter drafter = new MaxValueDrafter();
         final Summoner summoner = new MaxValueSummoner();
+        final Attacker attacker = new GuardAndFaceAttacker();
 
         // game loop
         while (true) {
@@ -75,12 +78,17 @@ class Player {
                 System.out.println("PICK " + draft);
             } else {
                 final List<Card> cardsInHand = getCardsByLocation(allCardsInPlay, 0);
-                final List<Card> myCardsInPlay = getCardsByLocation(allCardsInPlay, 1);
-                final List<Card> opponentCardsInPlay = getCardsByLocation(allCardsInPlay, -1);
+                final List<Card> myCardsOnBoard = getCardsByLocation(allCardsInPlay, 1);
+                final List<Card> opponentCardsOnBoard = getCardsByLocation(allCardsInPlay, -1);
 
-                final List<CardAction> summonActions = summoner.summon(cardsInHand, me.getMana());
+                final List<CardAction> summons = summoner.summon(cardsInHand, me.getMana());
+                final List<CardAction> attacks = attacker.getAttacks(myCardsOnBoard, opponentCardsOnBoard);
 
-                System.out.println(CardActions.getCardActionStrings(summonActions));
+                final ArrayList<CardAction> allActions = new ArrayList<>();
+                allActions.addAll(summons);
+                allActions.addAll(attacks);
+
+                System.out.println(CardActions.getCardActionStrings(allActions));
             }
         }
     }

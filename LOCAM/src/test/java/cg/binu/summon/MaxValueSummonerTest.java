@@ -80,7 +80,8 @@ public class MaxValueSummonerTest {
         cardsInHand.add(corruptedBeavrat);
 
         final List<CardAction> cardActions = summoner.summon(cardsInHand, MANA_3);
-        assertThat("There is one action.", cardActions.size(), is(1));assertThat(
+        assertThat("There is one action.", cardActions.size(), is(1));
+        assertThat(
                 "The action is summon 2.",
                 cardActions.get(0).toString(),
                 is(getCardActionStrings(singletonList(new SummonAction(corruptedBeavrat))))
