@@ -27,8 +27,8 @@ public class MaxValueSummoner implements Summoner {
         int availableMana = maxMana;
         final ArrayList<CardAction> summonActions = new ArrayList<>();
         playableCards.sort((card1, card2) -> {
-            double card1Value = (card1.getAttack() + card1.getDefense()) / (double) card1.getCost();
-            double card2Value = (card2.getAttack() + card2.getDefense()) / (double) card2.getCost();
+            double card1Value = card1.getAttack() + card1.getDefense();
+            double card2Value = card2.getAttack() + card2.getDefense();
 
             return card1Value - card2Value < 0 ? 1 : -1;
         });
