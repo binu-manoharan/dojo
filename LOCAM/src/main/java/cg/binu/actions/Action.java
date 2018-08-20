@@ -1,4 +1,4 @@
-package cg.binu.summon;
+package cg.binu.actions;
 
 public enum Action {
     SUMMON

@@ -1,4 +1,4 @@
-package cg.binu.summon;
+package cg.binu.actions;
 
 import cg.binu.input.Card;
 

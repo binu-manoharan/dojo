@@ -1,5 +1,7 @@
 package cg.binu.summon;
 
+import cg.binu.actions.Action;
+import cg.binu.actions.CardAction;
 import cg.binu.input.Card;
 import cg.binu.input.CardFactory;
 import org.junit.Test;
@@ -7,7 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cg.binu.summon.CardActions.getCardActionStrings;
+import static cg.binu.actions.CardActions.getCardActionStrings;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

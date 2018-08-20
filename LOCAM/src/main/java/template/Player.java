@@ -6,8 +6,8 @@ import cg.binu.draft.MaxValueDrafter;
 import cg.binu.input.Card;
 import cg.binu.input.CardType;
 import cg.binu.input.Hero;
-import cg.binu.summon.CardAction;
-import cg.binu.summon.CardActions;
+import cg.binu.actions.CardAction;
+import cg.binu.actions.CardActions;
 import cg.binu.summon.MaxValueSummoner;
 import cg.binu.summon.Summoner;
 
