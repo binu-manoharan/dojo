@@ -97,4 +97,8 @@ public class Card {
     public int getDamage() {
         return damage;
     }
+
+    public CardType getType() {
+        return type;
+    }
 }

@@ -4,7 +4,7 @@ import cg.binu.attack.Attacker;
 import cg.binu.attack.GuardAndFaceAttacker;
 import cg.binu.draft.DraftChoice;
 import cg.binu.draft.Drafter;
-import cg.binu.draft.MaxValueDrafter;
+import cg.binu.draft.MaxValueCreatureDrafter;
 import cg.binu.input.Card;
 import cg.binu.input.CardType;
 import cg.binu.input.Hero;
@@ -27,7 +27,7 @@ class Player {
 
     public static void main(String args[]) {
         Scanner in = new Scanner(System.in);
-        final Drafter drafter = new MaxValueDrafter();
+        final Drafter drafter = new MaxValueCreatureDrafter();
         final Summoner summoner = new MaxValueSummoner();
         final Attacker attacker = new GuardAndFaceAttacker();
 
@@ -74,8 +74,11 @@ class Player {
             if (draftingPhase) {
                 final DraftChoice draftChoice = new DraftChoice(allCardsInPlay);
                 final int draft = drafter.draft(draftChoice);
-
-                System.out.println("PICK " + draft);
+                if (draft == -1) {
+                    System.out.println("PASS");
+                } else {
+                    System.out.println("PICK " + draft);
+                }
             } else {
                 final List<Card> cardsInHand = getCardsByLocation(allCardsInPlay, 0);
                 final List<Card> myCardsOnBoard = getCardsByLocation(allCardsInPlay, 1);
