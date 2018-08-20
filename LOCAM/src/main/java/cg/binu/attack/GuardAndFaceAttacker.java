@@ -43,7 +43,11 @@ public class GuardAndFaceAttacker implements Attacker {
 
 
         if (numberOfOpponentCardsWithGuard > opponentCardsWithGuardIndex) {
-            opponentCardsAliveWithGuard.addAll(opponentCardsWithGuard.subList(opponentCardsWithGuardIndex, numberOfOpponentCardsWithGuard - 1));
+            if (opponentCardsWithGuardIndex == 0) {
+                opponentCardsAliveWithGuard.addAll(opponentCardsWithGuard);
+            } else {
+                opponentCardsAliveWithGuard.addAll(opponentCardsWithGuard.subList(opponentCardsWithGuardIndex, numberOfOpponentCardsWithGuard - 1));
+            }
         }
 
         for (Card opponentCard : opponentCardsAliveWithGuard) {

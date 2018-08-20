@@ -7,9 +7,11 @@ import cg.binu.input.CardFactory;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static cg.binu.actions.CardActions.getCardActionStrings;
+import static java.util.Collections.*;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
@@ -116,6 +118,24 @@ public class GuardAndFaceAttackerTest {
                 "The action is to attack face.",
                 attacks.get(0).toString(),
                 is(getCardActionStrings(singletonList(new AttackAction(murglord, turta))))
+        );
+    }
+
+    @Test
+    public void should_attack_gargantua_guard_mob_with_murglord_even_if_unable_to_kill_it() throws Exception {
+        final Attacker guardAndFaceAttacker = new GuardAndFaceAttacker();
+        final Card murglord = CardFactory.getWithInstanceId(70, 1);
+        final List<Card> myCardsOnBoard = singletonList(murglord);
+
+        final Card gargantua = CardFactory.getWithInstanceId(114, 2);
+        final List<Card> opponentCardsOnBoard = singletonList(gargantua);
+
+        final List<CardAction> attacks = guardAndFaceAttacker.getAttacks(myCardsOnBoard, opponentCardsOnBoard);
+        assertThat("There should be one attack", attacks.size(), is(1));
+        assertThat(
+                "The action is to attack face.",
+                attacks.get(0).toString(),
+                is(getCardActionStrings(singletonList(new AttackAction(murglord, gargantua))))
         );
     }
 }
