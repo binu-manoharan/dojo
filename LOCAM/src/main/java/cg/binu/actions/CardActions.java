@@ -10,7 +10,7 @@ public class CardActions {
 
         cardActions.stream()
                 .map(CardAction::toString)
-                .forEach(summonString -> cardActionString.set(cardActionString.get() + summonString));
+                .forEach(actionString -> cardActionString.set(cardActionString.get() + actionString));
         return cardActionString.get();
     }
 }
