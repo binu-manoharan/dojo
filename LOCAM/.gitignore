@@ -4,3 +4,4 @@ gradle/wrapper
 gradlew
 gradlew.bat
 tools/Player.java
+build/
