@@ -153,16 +153,9 @@ main = hspec $ do
       let result = getCoordinatesInGridWithColour inputGrid Blue
       result `shouldBe` (fromList [(0, 3), (1, 3), (0, 2), (1, 2)])
 
-    it "should get all blue coordinates clusters" $ do
-      let inputGrid = parseGrid [
-            "...1",
-            ".2.1",
-            "11.1",
-            "11.1"
-            ]
-
-      let allBlueNodes = fromList [(0, 3), (1, 3), (0, 2), (1, 2), (3, 0), (3, 1), (3, 2), (3, 3)]
-          result = getClusters allBlueNodes
+    it "should get all coordinates clusters" $ do
+      let allNodes = fromList [(0, 3), (1, 3), (0, 2), (1, 2), (3, 0), (3, 1), (3, 2), (3, 3)]
+          result = getClusters allNodes
       result `shouldBe` fromList [
         fromList [(0, 3), (1, 3), (0, 2), (1, 2)],
         fromList [(3, 0), (3, 1), (3, 2), (3, 3)]

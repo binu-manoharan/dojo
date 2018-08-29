@@ -16,10 +16,11 @@ module SmashTheCode (
   getClusters
   ) where
 
-import Data.Array
+import qualified Data.Array as A
+import Data.Array (Array, array, bounds, indices, (!), (//))
 import Data.List
 import Cell
-import Data.Set (Set, fromList)
+import Data.Set (Set, fromList, elems)
 
 data Block = Block {
   cellBottom :: Colour,
@@ -131,7 +132,7 @@ collapseGridAndScore :: Grid -> CollapseIterationResult
 collapseGridAndScore grid =
   let
     oldInternalArray = internalArray grid
-    oldValues = elems oldInternalArray
+    oldValues = A.elems oldInternalArray
     newValues = map convertCellToEmptyCell oldValues
     updates = zip (indices oldInternalArray) newValues :: [((Int, Int), Cell)]
     newInternalArray = oldInternalArray // updates
@@ -162,7 +163,7 @@ hasCellOfColour grid colour coordinate = let internalArray' = internalArray grid
 getClusters :: Set Coordinate -> Set (Set Coordinate)
 getClusters coordinates = let coordinatesList = elems coordinates
                             -- starting from each node recurse in every direction but keep a record of visited nodes.
-                          in undefined
+                          in fromList []
 
 -- getMatchingColourNeighbours :: Grid -> Coordinate -> [Coordinate]
 -- getMatchingColourNeighbours grid coordinate = let startingCell = getGridCell grid coordinate
