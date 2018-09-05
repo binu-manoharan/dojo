@@ -20,7 +20,8 @@ import qualified Data.Array as A
 import Data.Array (Array, array, bounds, indices, (!), (//))
 import Data.List
 import Cell
-import Data.Set (Set, fromList, elems)
+import Data.Set (Set, fromList, elems) 
+import qualified Data.Set as Set
 
 data Block = Block {
   cellBottom :: Colour,
@@ -126,7 +127,7 @@ mapLeft (Left x) f = Left (f x)
 mapLeft (Right y) _ = Right y
 
 data CollapseIterationResult =
-  CollapseIterationResult { grid :: Grid }
+  CollapseIterationResult { coordinates :: Grid }
 
 collapseGridAndScore :: Grid -> CollapseIterationResult
 collapseGridAndScore grid =
@@ -137,7 +138,7 @@ collapseGridAndScore grid =
     updates = zip (indices oldInternalArray) newValues :: [((Int, Int), Cell)]
     newInternalArray = oldInternalArray // updates
   in
-    CollapseIterationResult { grid = Grid {internalArray = newInternalArray} }
+    CollapseIterationResult { coordinates = Grid {internalArray = newInternalArray} }
 
 convertCellToEmptyCell :: Cell -> Cell
 convertCellToEmptyCell _ = Cell { value = Empty }
@@ -161,9 +162,15 @@ hasCellOfColour grid colour coordinate = let internalArray' = internalArray grid
                                          in cell == colourCell colour
 
 getClusters :: Set Coordinate -> Set (Set Coordinate)
+getClusters x | Set.null x = Set.empty
 getClusters coordinates = let coordinatesList = elems coordinates
-                            -- starting from each node recurse in every direction but keep a record of visited nodes.
-                          in fromList []
+                              firstElem = head coordinatesList
+                              nearbyCoordinatesInSet = getNearbyCoordinatesInSet coordinates firstElem
+                              thisCluster = if null nearbyCoordinatesInSet
+                                            then Set.singleton firstElem
+                                            else undefined
+                              otherClusters = undefined :: Set (Set Coordinate)
+                          in thisCluster `Set.insert` otherClusters
 
 -- getMatchingColourNeighbours :: Grid -> Coordinate -> [Coordinate]
 -- getMatchingColourNeighbours grid coordinate = let startingCell = getGridCell grid coordinate
@@ -173,17 +180,21 @@ getClusters coordinates = let coordinatesList = elems coordinates
 
 
 
+getNearbyCoordinatesInSet :: Set Coordinate -> Coordinate -> [Coordinate]
+getNearbyCoordinatesInSet coordinates coordinate =
+  filter (\x -> x `Set.member` coordinates) (getNearbyCoordinates coordinate)
 
--- getNearbyCoordinatesInGrid :: Grid -> Coordinate -> [Coordinate]
--- getNearbyCoordinatesInGrid grid coordinate =
---   filter (isInsideGrid grid) (getNearbyCoordinates coordinate)
 
--- getNearbyCoordinates :: Coordinate -> [Coordinate]
--- getNearbyCoordinates (x, y) = [(x - 1, y), (x, y - 1), (x + 1, y), (x, y + 1)]
+getNearbyCoordinatesInGrid :: Grid -> Coordinate -> [Coordinate]
+getNearbyCoordinatesInGrid grid coordinate =
+  filter (isInsideGrid grid) (getNearbyCoordinates coordinate)
 
--- isInsideGrid :: Grid -> Coordinate -> Bool
--- isInsideGrid grid (x, y) = let ((minX, minY), (maxX, maxY)) = bounds (internalArray grid)
---                            in minX <= x && x <= maxX && minY <= y && y <= maxY
+getNearbyCoordinates :: Coordinate -> [Coordinate]
+getNearbyCoordinates (x, y) = [(x - 1, y), (x, y - 1), (x + 1, y), (x, y + 1)]
+
+isInsideGrid :: Grid -> Coordinate -> Bool
+isInsideGrid grid (x, y) = let ((minX, minY), (maxX, maxY)) = bounds (internalArray grid)
+                           in minX <= x && x <= maxX && minY <= y && y <= maxY
 
                               
                                
