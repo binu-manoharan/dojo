@@ -127,7 +127,7 @@ mapLeft (Left x) f = Left (f x)
 mapLeft (Right y) _ = Right y
 
 data CollapseIterationResult =
-  CollapseIterationResult { coordinates :: Grid }
+  CollapseIterationResult { grid :: Grid }
 
 collapseGridAndScore :: Grid -> CollapseIterationResult
 collapseGridAndScore grid =
@@ -138,7 +138,7 @@ collapseGridAndScore grid =
     updates = zip (indices oldInternalArray) newValues :: [((Int, Int), Cell)]
     newInternalArray = oldInternalArray // updates
   in
-    CollapseIterationResult { coordinates = Grid {internalArray = newInternalArray} }
+    CollapseIterationResult { grid = Grid {internalArray = newInternalArray} }
 
 convertCellToEmptyCell :: Cell -> Cell
 convertCellToEmptyCell _ = Cell { value = Empty }
@@ -163,22 +163,27 @@ hasCellOfColour grid colour coordinate = let internalArray' = internalArray grid
 
 getClusters :: Set Coordinate -> Set (Set Coordinate)
 getClusters x | Set.null x = Set.empty
-getClusters coordinates = let coordinatesList = elems coordinates
-                              firstElem = head coordinatesList
-                              nearbyCoordinatesInSet = getNearbyCoordinatesInSet coordinates firstElem
-                              thisCluster = if null nearbyCoordinatesInSet
-                                            then Set.singleton firstElem
-                                            else undefined
-                              otherClusters = undefined :: Set (Set Coordinate)
-                          in thisCluster `Set.insert` otherClusters
-
--- getMatchingColourNeighbours :: Grid -> Coordinate -> [Coordinate]
--- getMatchingColourNeighbours grid coordinate = let startingCell = getGridCell grid coordinate
---                                               in if (isColourCell startingCell) then
---                                                    getNearbyCoordinatesInGrid grid coordinate -- filter then recursively call getMatchingColourNeightbours on it may be?
---                                                    else error("Expecting a cell with colour.")
+getClusters coordinates = 
+  let (thisCluster, remainingCoordinates) = getCluster coordinates
+      otherClusters = getClusters remainingCoordinates
+  in thisCluster `Set.insert` otherClusters
 
 
+getCluster :: Set Coordinate -> (Set Coordinate, Set Coordinate)
+getCluster x | Set.null x = error "Tried to get a cluster but wasn't given any coordinates"
+getCluster coordinates =
+  let firstElem = head $ elems coordinates
+      thisCluster = recursiveGetCluster coordinates firstElem
+      remainingCoordinates = Set.difference coordinates thisCluster
+  in (thisCluster, remainingCoordinates)
+
+recursiveGetCluster :: Set Coordinate -> Coordinate -> Set Coordinate
+recursiveGetCluster allCoordinates startingCoordinate =
+  let nearbyCoordinatesInSet = getNearbyCoordinatesInSet allCoordinates startingCoordinate
+      filteredCoordinates = Set.delete startingCoordinate allCoordinates
+      recursiveResult = map (recursiveGetCluster filteredCoordinates) nearbyCoordinatesInSet
+      recursiveResult' = Set.unions recursiveResult
+  in startingCoordinate `Set.insert` recursiveResult'
 
 getNearbyCoordinatesInSet :: Set Coordinate -> Coordinate -> [Coordinate]
 getNearbyCoordinatesInSet coordinates coordinate =
