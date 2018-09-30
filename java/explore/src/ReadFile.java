@@ -7,8 +7,10 @@ import java.util.List;
 public class ReadFile {
     public static void main(String[] args) throws IOException {
         final URL resource = ReadFile.class.getClassLoader().getResource("fruits.txt");
-        final List<String> strings = Files.readAllLines(Paths.get(resource.getFile()));
+        final String file = resource.getFile();
+        System.out.println(file);
 
+        final List<String> strings = Files.readAllLines(Paths.get(file));
         strings.forEach(System.out::println);
     }
 }
