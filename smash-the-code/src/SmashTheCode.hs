@@ -134,22 +134,30 @@ collapseGridAndScore grid =
   let
     oldInternalArray = internalArray grid
     oldValues = A.elems oldInternalArray
-    newValues = map convertCellToEmptyCell oldValues
+    newValues = undefined
     updates = zip (indices oldInternalArray) newValues :: [((Int, Int), Cell)]
     newInternalArray = oldInternalArray // updates
   in
     CollapseIterationResult { grid = Grid {internalArray = newInternalArray} }
 
-convertCellToEmptyCell :: Cell -> Cell
-convertCellToEmptyCell _ = Cell { value = Empty }
-
 type Coordinate = (Int, Int)
 
-data CoordinatesToCollapse = CoordinatesToCollapse (Set Coordinate) | NothingToCollapse
+data CoordinatesToCollapse = CoordinatesToCollapse (Set Cluster) | NothingToCollapse
                              deriving (Show, Eq)
 
 getCoordinatesToCollapse :: Grid -> Coordinate -> CoordinatesToCollapse
-getCoordinatesToCollapse grid coordinate = undefined
+getCoordinatesToCollapse grid coordinate = 
+  let allClusters = Set.unions $ map (getClustersOfColour grid) allColours
+      allCollapsibleClusters = Set.filter (\x -> Set.size x >= 4) allClusters
+  in if (Set.null allCollapsibleClusters) then
+       NothingToCollapse
+     else 
+       CoordinatesToCollapse allCollapsibleClusters
+
+type Cluster = Set Coordinate
+
+getClustersOfColour :: Grid -> Colour -> Set Cluster
+getClustersOfColour grid colour = getClusters (getCoordinatesInGridWithColour grid colour)
 
 getCoordinatesInGridWithColour :: Grid -> Colour -> Set Coordinate
 getCoordinatesInGridWithColour grid colour =
@@ -160,7 +168,7 @@ hasCellOfColour :: Grid -> Colour -> Coordinate -> Bool
 hasCellOfColour grid colour coordinate = let internalArray' = internalArray grid
                                              cell = internalArray' ! coordinate
                                          in cell == colourCell colour
-
+                                         
 getClusters :: Set Coordinate -> Set (Set Coordinate)
 getClusters x | Set.null x = Set.empty
 getClusters coordinates = 
