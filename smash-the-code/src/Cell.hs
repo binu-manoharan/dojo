@@ -1,7 +1,10 @@
 module Cell where
 
 data Colour = Blue | Green | Red | Yellow | Purple
-            deriving (Eq, Show)
+            deriving (Eq, Show, Enum)
+
+allColours :: [Colour]
+allColours = [Blue ..]
 
 data CellValue = Empty | Skull | ColourValue Colour
                deriving (Eq, Show)

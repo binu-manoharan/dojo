@@ -141,7 +141,17 @@ main = hspec $ do
             ]
           startingCoordinate = (0, 3)
       let result = getCoordinatesToCollapse inputGrid startingCoordinate
-      result `shouldBe` CoordinatesToCollapse (fromList [(0, 3), (1, 3), (0, 2), (1, 2)])
+      result `shouldBe` CoordinatesToCollapse (fromList [(fromList [(0, 3), (1, 3), (0, 2), (1, 2)])])
+
+    it "should get all blue clusters" $ do
+      let inputGrid = parseGrid [
+            "....",
+            ".2..",
+            "11..",
+            "11.."
+            ]
+      let result = getCoordinatesInGridWithColour inputGrid Blue
+      result `shouldBe` (fromList [(0, 3), (1, 3), (0, 2), (1, 2)])
 
     it "should get all blue coordinates" $ do
       let inputGrid = parseGrid [
