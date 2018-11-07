@@ -1,0 +1,33 @@
+{
+  "name": "rxjsplayground",
+  "version": "1.0.0",
+  "description": "A place to play with rxjs. ",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "webpack-dev-server --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/binu-manoharan/rxjsplayground.git"
+  },
+  "author": "Binu Manoharan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/binu-manoharan/rxjsplayground/issues"
+  },
+  "homepage": "https://github.com/binu-manoharan/rxjsplayground#readme",
+  "devDependencies": {
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "@reactivex/rxjs": "^6.3.3",
+    "rxjs": "^6.3.3",
+    "ts-loader": "^5.2.2",
+    "typescript": "^3.1.2",
+    "typings": "^2.1.1",
+    "webpack": "^4.22.0",
+    "webpack-dev-server": "^3.1.10"
+  }
+}
