@@ -134,7 +134,7 @@ collapseGridAndScore grid =
   let
     oldInternalArray = internalArray grid
     oldValues = A.elems oldInternalArray
-    newValues = undefined
+    newValues = undefined -- TODO previously we made an empty list 
     updates = zip (indices oldInternalArray) newValues :: [((Int, Int), Cell)]
     newInternalArray = oldInternalArray // updates
   in
