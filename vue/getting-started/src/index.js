@@ -15,4 +15,14 @@ function component() {
     return element;
 }
 
-document.body.appendChild(component());
+const element = component();
+document.body.appendChild(element);
+
+if (module.hot) {
+    module.hot.accept('./print.js', () => {
+        console.log('Accepting the updated printMe module!');
+        document.body.removeChild(element);
+        element = component();
+        document.body.appendChild(element);
+    });
+}
