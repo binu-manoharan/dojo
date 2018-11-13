@@ -1,5 +1,9 @@
 import { cube } from './math.js';
 
+if (process.env.NODE_ENV !== 'production') {
+    console.log('We are not in production mode');
+}
+
 function component() {
     const element = document.createElement('pre');
 
