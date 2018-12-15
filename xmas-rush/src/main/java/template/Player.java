@@ -2,7 +2,9 @@ package template;
 
 import cg.board.Board;
 import cg.board.Tile;
+import cg.game.Item;
 import cg.game.Participant;
+import cg.game.Quest;
 
 import java.util.*;
 import java.io.*;
@@ -42,16 +44,23 @@ class Player {
             }
 
             int numItems = in.nextInt(); // the total number of items available on board and on player tiles
+            final Item[] items = new Item[numItems];
             for (int i = 0; i < numItems; i++) {
                 String itemName = in.next();
                 int itemX = in.nextInt();
                 int itemY = in.nextInt();
                 int itemPlayerId = in.nextInt();
+                items[i] = new Item(itemPlayerId, itemX, itemY, itemName);
+                System.err.println(items[i]);
             }
+
             int numQuests = in.nextInt(); // the total number of revealed quests for both players
+            final Quest[] quests = new Quest[numQuests];
             for (int i = 0; i < numQuests; i++) {
                 String questItemName = in.next();
                 int questPlayerId = in.nextInt();
+                quests[i] = new Quest(questItemName, questPlayerId);
+                System.err.println(quests[i]);
             }
 
             // Write an action using System.out.println()
