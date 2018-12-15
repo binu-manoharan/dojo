@@ -1,4 +1,4 @@
-package cg;
+package cg.board;
 
 import org.junit.Test;
 

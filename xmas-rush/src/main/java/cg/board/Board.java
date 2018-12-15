@@ -1,4 +1,4 @@
-package cg;
+package cg.board;
 
 public class Board {
     private Tile[][] tiles = new Tile[7][7];

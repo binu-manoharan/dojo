@@ -1,4 +1,4 @@
-package cg;
+package cg.board;
 
 public class Tile {
     private int x, y;
@@ -29,7 +29,6 @@ public class Tile {
         if (right) {
             directionString.setCharAt(2, '>');
         }
-
 
         return directionString.toString();
     }
