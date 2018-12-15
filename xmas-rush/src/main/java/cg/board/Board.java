@@ -6,19 +6,26 @@ package cg.board;
 public class Board {
     private Tile[][] tiles = new Tile[7][7];
 
-    public void initBoard() {
-        for (int x = 0; x < 7; x++) {
-            for (int y = 0; y < 7; y++) {
-                tiles[x][y] = new Tile(x, y, true, true, true, true);
+    public Board(String[] tileString) {
+        assert tileString.length == 7;
+
+        for (int y = 0; y < 7; y++) {
+            final String[] tilesInRow = tileString[y].split(" ");
+            for (int x = 0; x < 7; x++) {
+                this.tiles[x][y] = new Tile(x, y, tilesInRow[x]);
             }
         }
+    }
+
+    public Tile[][] getTiles() {
+        return tiles;
     }
 
     @Override
     public String toString() {
         String boardString = "";
-        for (int x = 0; x < 7; x++) {
-            for (int y = 0; y < 7; y++) {
+        for (int y = 0; y < 7; y++) {
+            for (int x = 0; x < 7; x++) {
                 boardString += tiles[x][y].toString();
             }
             boardString += "\n";

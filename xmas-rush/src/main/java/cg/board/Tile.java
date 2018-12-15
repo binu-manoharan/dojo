@@ -1,54 +1,47 @@
 package cg.board;
 
+import cg.game.Direction;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Single tile on a board. In a game there are 51 tiles, 49 on the board and 2 in player hand.
  */
 public class Tile {
-    private int x, y;
-    private boolean up, right, down, left;
+    private int x;
+    private int y;
+    private final String movableDirections;
 
-    public Tile(int x, int y, boolean up, boolean right, boolean down, boolean left) {
+    public Tile(int x, int y, String movableDirections) {
         this.x = x;
         this.y = y;
-        this.up = up;
-        this.right = right;
-        this.down = down;
-        this.left = left;
+        this.movableDirections = movableDirections;
     }
 
     @Override
     public String toString() {
-
-        final StringBuilder directionString = new StringBuilder("|     |");
-        if (up) {
-            directionString.setCharAt(1, '^');
-        }
-        if (down) {
-            directionString.setCharAt(3, 'v');
-        }
-        if (left) {
-            directionString.setCharAt(4, '<');
-        }
-        if (right) {
-            directionString.setCharAt(2, '>');
-        }
-
-        return directionString.toString();
+        return movableDirections;
     }
 
-    public void setUp(boolean up) {
-        this.up = up;
-    }
+    public List<Direction> getMovableDirections() {
+        final ArrayList<Direction> directions = new ArrayList<>();
+        if (this.movableDirections.charAt(0) == '1') {
+            directions.add(Direction.UP);
+        }
 
-    public void setRight(boolean right) {
-        this.right = right;
-    }
+        if (this.movableDirections.charAt(1) == '1') {
+            directions.add(Direction.RIGHT);
+        }
 
-    public void setDown(boolean down) {
-        this.down = down;
-    }
+        if (this.movableDirections.charAt(2) == '1') {
+            directions.add(Direction.DOWN);
+        }
 
-    public void setLeft(boolean left) {
-        this.left = left;
+        if (this.movableDirections.charAt(3) == '1') {
+            directions.add(Direction.LEFT);
+        }
+
+        return directions;
     }
 }
