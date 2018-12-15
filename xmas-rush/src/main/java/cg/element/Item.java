@@ -1,4 +1,4 @@
-package cg.game;
+package cg.element;
 
 /**
  * Item that needs to be collected for quests

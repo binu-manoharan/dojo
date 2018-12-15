@@ -1,11 +1,11 @@
 package cg.board;
 
-import cg.game.Direction;
+import cg.element.Direction;
 import org.junit.Test;
 
 import java.util.List;
 
-import static cg.game.Direction.*;
+import static cg.element.Direction.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 

@@ -1,4 +1,4 @@
-package cg.game;
+package cg.element;
 
 /**
  * Available directions to move or push

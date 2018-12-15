@@ -2,13 +2,11 @@ package template;
 
 import cg.board.Board;
 import cg.board.Tile;
-import cg.game.Item;
-import cg.game.Participant;
-import cg.game.Quest;
+import cg.element.Item;
+import cg.element.Participant;
+import cg.element.Quest;
 
 import java.util.*;
-import java.io.*;
-import java.math.*;
 
 /**
  * Help the Christmas elves fetch presents in a magical labyrinth!
@@ -18,7 +16,7 @@ class Player {
     public static void main(String args[]) {
         Scanner in = new Scanner(System.in);
 
-        // game loop
+        // element loop
         while (true) {
             int turnType = in.nextInt();
             String[] boardString = new String[7];

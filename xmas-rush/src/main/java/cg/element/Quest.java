@@ -1,4 +1,4 @@
-package cg.game;
+package cg.element;
 
 /**
  * Quest for a player to collect item

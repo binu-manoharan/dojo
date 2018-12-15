@@ -1,12 +1,12 @@
 package cg.board;
 
-import cg.game.Direction;
+import cg.element.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Single tile on a board. In a game there are 51 tiles, 49 on the board and 2 in player hand.
+ * Single tile on a board. In a element there are 51 tiles, 49 on the board and 2 in player hand.
  */
 public class Tile {
     private int x;
