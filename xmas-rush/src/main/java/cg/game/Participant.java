@@ -1,4 +1,4 @@
-package cg.objects;
+package cg.game;
 
 import cg.board.Tile;
 

@@ -2,7 +2,7 @@ package template;
 
 import cg.board.Board;
 import cg.board.Tile;
-import cg.objects.Participant;
+import cg.game.Participant;
 
 import java.util.*;
 import java.io.*;
