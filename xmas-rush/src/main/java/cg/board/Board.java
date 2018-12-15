@@ -1,5 +1,8 @@
 package cg.board;
 
+/**
+ * Game 7x7 board for xmas rush
+ */
 public class Board {
     private Tile[][] tiles = new Tile[7][7];
 

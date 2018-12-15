@@ -1,5 +1,8 @@
 package cg.board;
 
+/**
+ * Single tile on a board. In a game there are 51 tiles, 49 on the board and 2 in player hand.
+ */
 public class Tile {
     private int x, y;
     private boolean up, right, down, left;
