@@ -20,7 +20,7 @@ public class BreadthFirstTree {
             List<Quest> availableQuests,
             List<Item> items)
     {
-        this.rootNode = new Node(new GameState(board, me, availableQuests, items), null);
+        this.rootNode = new Node(new GameState(board, me, availableQuests, items), null, null);
     }
 
     public void populateTreeFromRootNode(int depth) {
@@ -34,12 +34,25 @@ public class BreadthFirstTree {
 
         final List<PushOperation> allPushOperations = PushOperation.getAllPushOperations();
         for (PushOperation pushOperation : allPushOperations) {
-            final GameState node = new GameState(parentNode.getGameState());
-            node.push(pushOperation.getDirection(), pushOperation.getPushIndex());
-            final Node child = new Node(node, pushOperation);
-            parentNode.addChild(child);
+            final GameState gameStateWithPushOperationApplied = new GameState(parentNode.getGameState());
+            gameStateWithPushOperationApplied.push(pushOperation.getDirection(), pushOperation.getPushIndex());
+            final Node child = new Node(gameStateWithPushOperationApplied, pushOperation, parentNode);
 
-            populateTree(child, --depth);
+
+            final boolean isGoodGameState = parentNode.addChild(child);
+            updateTreeStateInfo(child, isGoodGameState);
+            populateTree(child, depth - 1);
+        }
+    }
+
+    private void updateTreeStateInfo(Node node, boolean isGood) {
+        if (node != null) {
+            if (isGood) {
+                node.good++;
+            } else {
+                node.bad++;
+            }
+            updateTreeStateInfo(node.getParent(), isGood);
         }
     }
 

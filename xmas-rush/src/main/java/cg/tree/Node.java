@@ -1,5 +1,9 @@
 package cg.tree;
 
+import cg.board.Board;
+import cg.element.Item;
+import cg.element.Participant;
+import cg.element.Quest;
 import cg.operation.Operation;
 
 import java.util.ArrayList;
@@ -12,15 +16,43 @@ import java.util.List;
 public class Node {
     private final GameState gameState;
     private final Operation operation;
+    private final Node parent;
     private final List<Node> children = new ArrayList<>();
+    int good, bad = 0;
 
-    public Node(GameState gameState, Operation operation) {
+    public Node(GameState gameState, Operation operation, Node parent) {
         this.gameState = new GameState(gameState);
         this.operation = operation;
+        this.parent = parent;
     }
 
-    public void addChild(Node child) {
+    public boolean addChild(Node child) {
         children.add(child);
+        return child.isGoodGameState();
+    }
+
+    public boolean isGoodGameState() {
+        final Board board = gameState.getBoard();
+        final Participant me = gameState.getMe();
+        final List<Item> items = gameState.getItems();
+        final List<Quest> availableQuests = gameState.getAvailableQuests();
+        boolean isGood = false;
+
+        for (Quest availableQuest : availableQuests) {
+            final String questItemName = availableQuest.getItemName();
+            for (Item item : items) {
+                final String itemName = item.getName();
+                if (itemName.equals(questItemName)) {
+                    final boolean connected = PathHelper.isConnected(board, me.getX(), me.getY(), item.getX(), item.getY());
+                    if (connected) {
+                        isGood = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return isGood;
     }
 
     @Override
@@ -52,5 +84,9 @@ public class Node {
 
     public List<Node> getChildren() {
         return children;
+    }
+
+    public Node getParent() {
+        return parent;
     }
 }

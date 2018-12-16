@@ -8,6 +8,7 @@ import cg.element.Quest;
 import cg.tree.BreadthFirstTree;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Help the Christmas elves fetch presents in a magical labyrinth!
@@ -63,7 +64,12 @@ class Player {
                 System.err.println(quests.get(i));
             }
 
-            final BreadthFirstTree breadthFirstTree = new BreadthFirstTree(board, participants[0], quests, items);
+            final BreadthFirstTree breadthFirstTree = new BreadthFirstTree(
+                    board,
+                    participants[0],
+                    quests.stream().filter(quest -> quest.getPlayerId() == 0).collect(Collectors.toList()),
+                    items.stream().filter(item -> item.getPlayerId() == 0).collect(Collectors.toList())
+            );
             breadthFirstTree.populateTreeFromRootNode(2);
 
             final long endTime = System.currentTimeMillis();

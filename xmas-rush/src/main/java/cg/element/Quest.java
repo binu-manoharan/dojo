@@ -19,4 +19,12 @@ public class Quest {
                 ", playerId=" + playerId +
                 '}';
     }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public int getPlayerId() {
+        return playerId;
+    }
 }

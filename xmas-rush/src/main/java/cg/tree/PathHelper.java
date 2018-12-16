@@ -11,6 +11,9 @@ import java.util.List;
  */
 public class PathHelper {
     public static boolean isConnected(Board board, int x, int y, int x1, int y1) {
+        if (x < 0 || y < 0 || x1 < 0 || y1 < 0) {
+            return false;
+        }
         final ArrayList<Tile> connectedTiles = new ArrayList<>();
         addAllConnectedTiles(board, connectedTiles, x, y);
         return connectedTiles.contains(board.getTiles()[x1][y1]);
