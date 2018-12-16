@@ -5,6 +5,7 @@ import cg.board.Tile;
 import cg.element.Item;
 import cg.element.Participant;
 import cg.element.Quest;
+import cg.tree.BreadthFirstTree;
 
 import java.util.*;
 
@@ -18,6 +19,7 @@ class Player {
 
         // element loop
         while (true) {
+            final long startTime = System.currentTimeMillis();
             int turnType = in.nextInt();
             String[] boardString = new String[7];
             for (int i = 0; i < 7; i++) {
@@ -42,24 +44,29 @@ class Player {
             }
 
             int numItems = in.nextInt(); // the total number of items available on board and on player tiles
-            final Item[] items = new Item[numItems];
+            final ArrayList<Item> items = new ArrayList<>();
             for (int i = 0; i < numItems; i++) {
                 String itemName = in.next();
                 int itemX = in.nextInt();
                 int itemY = in.nextInt();
                 int itemPlayerId = in.nextInt();
-                items[i] = new Item(itemPlayerId, itemX, itemY, itemName);
-                System.err.println(items[i]);
+                items.add(new Item(itemPlayerId, itemX, itemY, itemName));
+                System.err.println(items.get(i));
             }
 
             int numQuests = in.nextInt(); // the total number of revealed quests for both players
-            final Quest[] quests = new Quest[numQuests];
+            final ArrayList<Quest> quests = new ArrayList<>();
             for (int i = 0; i < numQuests; i++) {
                 String questItemName = in.next();
                 int questPlayerId = in.nextInt();
-                quests[i] = new Quest(questItemName, questPlayerId);
-                System.err.println(quests[i]);
+                quests.add(new Quest(questItemName, questPlayerId));
+                System.err.println(quests.get(i));
             }
+
+            final BreadthFirstTree breadthFirstTree = new BreadthFirstTree(board, participants[0], quests, items);
+            breadthFirstTree.populateTree(1);
+            final long endTime = System.currentTimeMillis();
+            System.err.println("Time taken: " + (endTime - startTime));
 
             // Write an action using System.out.println()
             // To debug: System.err.println("Debug messages...");

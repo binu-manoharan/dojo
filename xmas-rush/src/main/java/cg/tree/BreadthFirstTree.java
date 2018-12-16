@@ -24,7 +24,7 @@ public class BreadthFirstTree {
     }
 
     public void populateTree(int depth) {
-        if (depth == 0) {
+        if (depth >= 0) {
             return;
         }
 
