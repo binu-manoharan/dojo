@@ -8,7 +8,7 @@ import cg.board.Tile;
 public class Participant {
     private final int x,y;
     private final int numAvailableQuests;
-    private final Tile tileInHand;
+    private Tile tileInHand;
 
     public Participant(Participant participant) {
         x = participant.x;
@@ -32,5 +32,25 @@ public class Participant {
                 ", numAvailableQuests=" + numAvailableQuests +
                 ", tileInHand=" + tileInHand +
                 '}';
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getNumAvailableQuests() {
+        return numAvailableQuests;
+    }
+
+    public Tile getTileInHand() {
+        return tileInHand;
+    }
+
+    public void setTileInHand(Tile tileInHand) {
+        this.tileInHand = tileInHand;
     }
 }

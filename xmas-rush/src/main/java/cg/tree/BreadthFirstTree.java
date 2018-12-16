@@ -25,10 +25,11 @@ public class BreadthFirstTree {
     }
 
     public void populateTree() {
-        final List<Operation> allPushOperations = PushOperation.getAllPushOperations();
-        for (Operation allPushOperation : allPushOperations) {
-            final GameState gameState = rootNode.getGameState(); // TODO apply push operation on this game state
-            final Node child = new Node(gameState, allPushOperation);
+        final List<PushOperation> allPushOperations = PushOperation.getAllPushOperations();
+        for (PushOperation pushOperation : allPushOperations) {
+            final GameState node = new GameState(rootNode.getGameState());
+            node.push(pushOperation.getDirection(), pushOperation.getPushIndex());
+            final Node child = new Node(node, pushOperation);
             rootNode.addChild(child);
         }
     }

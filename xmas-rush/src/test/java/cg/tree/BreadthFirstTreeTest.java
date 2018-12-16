@@ -4,7 +4,6 @@ import cg.board.Tile;
 import cg.element.Item;
 import cg.element.Participant;
 import cg.element.Quest;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -28,16 +27,16 @@ public class BreadthFirstTreeTest {
         assertThat(children.size(), is(28));
     }
 
-    @Ignore
     @Test
-    public void should_compile() throws Exception {
-        final Tile myTile = new Tile(-1, -1, "0000");
+    public void should_have_28_push_operation_children() throws Exception {
+        final Tile myTile = new Tile(-1, -1, "1111");
         final Participant me = new Participant(0, 0, 1, myTile);
         final List<Quest> quests = singletonList(new Quest("DIAMOND", 0));
         final List<Item> items = singletonList(new Item(0, -1, -1, "DIAMOND"));
 
         final BreadthFirstTree breadthFirstTree = new BreadthFirstTree(getEmptyBoard(), me, quests, items);
         breadthFirstTree.populateTree();
-
+        final List<Node> children = breadthFirstTree.getRootNode().getChildren();
+        assertThat(children.size(), is(28));
     }
 }

@@ -14,4 +14,8 @@ public abstract class Operation {
 
     @Override
     public abstract String toString();
+
+    public Direction getDirection() {
+        return direction;
+    }
 }

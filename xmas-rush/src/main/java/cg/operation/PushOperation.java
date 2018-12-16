@@ -9,20 +9,20 @@ import java.util.List;
  * A push action on the board
  */
 public class PushOperation extends Operation {
-    private final int id;
+    private final int pushIndex;
 
-    public PushOperation(int id, Direction direction) {
+    public PushOperation(int pushIndex, Direction direction) {
         super(direction);
-        this.id = id;
+        this.pushIndex = pushIndex;
     }
 
     @Override
     public String toString() {
-        return "PUSH " + id + " " + direction;
+        return "PUSH " + pushIndex + " " + direction;
     }
 
-    public static List<Operation> getAllPushOperations() {
-        final ArrayList<Operation> operations = new ArrayList<>();
+    public static List<PushOperation> getAllPushOperations() {
+        final ArrayList<PushOperation> operations = new ArrayList<>();
         final Direction[] values = Direction.values();
         for (int id = 0; id < 7; id++) {
             for (int i = 0; i < values.length; i++) {
@@ -31,5 +31,9 @@ public class PushOperation extends Operation {
         }
 
         return operations;
+    }
+
+    public int getPushIndex() {
+        return pushIndex;
     }
 }
