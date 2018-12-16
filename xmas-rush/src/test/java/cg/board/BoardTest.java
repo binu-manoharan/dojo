@@ -1,6 +1,7 @@
 package cg.board;
 
 import cg.element.Direction;
+import cg.helper.TestUtils;
 import org.junit.Test;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class BoardTest {
 
     @Test
-    public void should_create_an_empty_board() throws Exception {
+    public void should_create_a_board() throws Exception {
         final String[] tileString = {
             "0000 0000 0000 0000 0000 0000 0000",
             "1111 0000 0000 0000 0000 0000 0000",
@@ -36,6 +37,60 @@ public class BoardTest {
                 assertDirection(tilesInRow[tilesInRowIndex], movableDirections, 3, LEFT);
             }
         }
+    }
+
+    @Test
+    public void should_push_tile_down() throws Exception {
+        final Board board = TestUtils.getEmptyBoard();
+        final Tile tileInHand = new Tile(-1, -1, "1111");
+        final Tile newTileInHand = board.push(tileInHand, DOWN, 0);
+        final Tile[][] tiles = board.getTiles();
+
+        assertThat(newTileInHand.toString(), is("0000"));
+        final Tile tile = tiles[0][0];
+        assertTile(tile, 0, 0);
+    }
+
+    @Test
+    public void should_push_tile_up() throws Exception {
+        final Board board = TestUtils.getEmptyBoard();
+        final Tile tileInHand = new Tile(-1, -1, "1111");
+        final Tile newTileInHand = board.push(tileInHand, UP, 1);
+        final Tile[][] tiles = board.getTiles();
+
+        assertThat(newTileInHand.toString(), is("0000"));
+        final Tile tile = tiles[1][6];
+        assertTile(tile, 1, 6);
+    }
+
+    @Test
+    public void should_push_tile_right() throws Exception {
+        final Board board = TestUtils.getEmptyBoard();
+        final Tile tileInHand = new Tile(-1, -1, "1111");
+        final Tile newTileInHand = board.push(tileInHand, RIGHT, 2);
+        final Tile[][] tiles = board.getTiles();
+
+        assertThat(newTileInHand.toString(), is("0000"));
+        final Tile tile = tiles[0][2];
+        assertTile(tile, 0, 2);
+    }
+
+    @Test
+    public void should_push_tile_left() throws Exception {
+        final Board board = TestUtils.getEmptyBoard();
+        final Tile tileInHand = new Tile(-1, -1, "1111");
+        final Tile newTileInHand = board.push(tileInHand, LEFT, 3);
+        final Tile[][] tiles = board.getTiles();
+
+        assertThat(newTileInHand.toString(), is("0000"));
+        final Tile tile = tiles[6][3];
+        assertTile(tile, 6, 3);
+    }
+
+    private void assertTile(Tile tile, int x, int y) {
+        assertThat(tile.getX(), is(x));
+        assertThat(tile.getY(), is(y));
+        assertThat(tile.getMovableDirectionsString(), is("1111"));
     }
 
     private void assertDirection(String tileDirectionString, List<Direction> movableDirections, int charPosition, Direction expectedDirection) {

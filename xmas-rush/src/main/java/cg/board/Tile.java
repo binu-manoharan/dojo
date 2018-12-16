@@ -11,45 +11,57 @@ import java.util.List;
 public class Tile {
     private final int x;
     private final int y;
-    private final String movableDirections;
-    private final ArrayList<Direction> directions;
+    private final String movableDirectionsString;
+    private final ArrayList<Direction> movableDirections;
 
     public Tile(Tile tile) {
         x = tile.x;
         y = tile.y;
-        movableDirections = tile.movableDirections;
-        directions = new ArrayList<>(tile.directions);
+        movableDirectionsString = tile.movableDirectionsString;
+        movableDirections = new ArrayList<>(tile.movableDirections);
     }
 
-    public Tile(int x, int y, String movableDirections) {
+    public Tile(int x, int y, String movableDirectionsString) {
         this.x = x;
         this.y = y;
-        this.movableDirections = movableDirections;
+        this.movableDirectionsString = movableDirectionsString;
 
-        directions = new ArrayList<>();
-        if (movableDirections.charAt(0) == '1') {
-            directions.add(Direction.UP);
+        movableDirections = new ArrayList<>();
+        if (movableDirectionsString.charAt(0) == '1') {
+            movableDirections.add(Direction.UP);
         }
 
-        if (movableDirections.charAt(1) == '1') {
-            directions.add(Direction.RIGHT);
+        if (movableDirectionsString.charAt(1) == '1') {
+            movableDirections.add(Direction.RIGHT);
         }
 
-        if (movableDirections.charAt(2) == '1') {
-            directions.add(Direction.DOWN);
+        if (movableDirectionsString.charAt(2) == '1') {
+            movableDirections.add(Direction.DOWN);
         }
 
-        if (movableDirections.charAt(3) == '1') {
-            directions.add(Direction.LEFT);
+        if (movableDirectionsString.charAt(3) == '1') {
+            movableDirections.add(Direction.LEFT);
         }
     }
 
     @Override
     public String toString() {
-        return movableDirections;
+        return movableDirectionsString;
     }
 
     public List<Direction> getMovableDirections() {
-        return directions;
+        return movableDirections;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public String getMovableDirectionsString() {
+        return movableDirectionsString;
     }
 }

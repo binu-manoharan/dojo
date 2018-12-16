@@ -1,5 +1,7 @@
 package cg.board;
 
+import cg.element.Direction;
+
 /**
  * Game 7x7 board for xmas rush
  */
@@ -40,5 +42,41 @@ public class Board {
             boardString += "\n";
         }
         return boardString;
+    }
+
+    public Tile push(Tile tileInHand, Direction direction, int pushIndex) {
+        Tile newTileInHand = null;
+        switch (direction) {
+            case DOWN:
+                newTileInHand = new Tile(tiles[pushIndex][6]);
+                for (int i = 6; i > 0; i--) {
+                    tiles[pushIndex][i] = tiles[pushIndex][i - 1];
+                }
+                tiles[pushIndex][0] =  new Tile(pushIndex, 0, tileInHand.getMovableDirectionsString());
+                break;
+            case UP:
+                newTileInHand = new Tile(tiles[pushIndex][0]);
+                for (int i = 0; i < 6; i++) {
+                    tiles[pushIndex][i] = tiles[pushIndex][i + 1];
+                }
+                tiles[pushIndex][6] = new Tile(pushIndex, 6, tileInHand.getMovableDirectionsString());
+                break;
+            case RIGHT:
+                newTileInHand = new Tile(tiles[6][pushIndex]);
+                for (int i = 6; i > 0; i--) {
+                    tiles[i][pushIndex] = tiles[i - 1][pushIndex];
+                }
+                tiles[0][pushIndex] =  new Tile(0, pushIndex, tileInHand.getMovableDirectionsString());
+                break;
+            case LEFT:
+                newTileInHand = new Tile(tiles[0][pushIndex]);
+                for (int i = 0; i < 6; i++) {
+                    tiles[i][pushIndex] = tiles[i + 1][pushIndex];
+                }
+                tiles[6][pushIndex] = new Tile(6, pushIndex, tileInHand.getMovableDirectionsString());
+                break;
+        }
+
+        return newTileInHand;
     }
 }
