@@ -34,7 +34,10 @@ public class GameState {
     }
 
     public void push(Direction direction, int pushIndex) {
-        final Tile newTile = this.board.push(me.getTileInHand(), direction, pushIndex);
+        System.err.println(direction + " " + pushIndex);
+        final Tile tileInHand = me.getTileInHand();
+        System.err.println(tileInHand.getX() + " " + tileInHand.getY() + " " + tileInHand);
+        final Tile newTile = this.board.push(tileInHand, direction, pushIndex);
         me.setTileInHand(newTile);
     }
 

@@ -73,8 +73,7 @@ public class Tile {
         Tile tile = (Tile) o;
 
         if (x != tile.x) return false;
-        if (y != tile.y) return false;
-        return movableDirectionsString.equals(tile.movableDirectionsString);
+        return y == tile.y;
 
     }
 
@@ -82,7 +81,6 @@ public class Tile {
     public int hashCode() {
         int result = x;
         result = 31 * result + y;
-        result = 31 * result + movableDirectionsString.hashCode();
         return result;
     }
 }

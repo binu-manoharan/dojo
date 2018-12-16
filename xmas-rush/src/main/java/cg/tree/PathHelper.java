@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class PathHelper {
     public static boolean isConnected(Board board, int x, int y, int x1, int y1) {
+        System.err.println(board);
+        System.err.println(x + "," + y + " to " + x1 + "," + y1);
         if (x < 0 || y < 0 || x1 < 0 || y1 < 0) {
             return false;
         }
@@ -21,15 +23,15 @@ public class PathHelper {
 
     private static void addAllConnectedTiles(Board board, List<Tile> connectedTiles, int x, int y) {
         final Tile currentTile = board.getTiles()[x][y];
-        if (!connectedTiles.contains(currentTile)) {
+        if (connectedTiles.contains(currentTile)) {
+            return;
+        } else {
             connectedTiles.add(currentTile);
+            System.err.println(currentTile);
         }
 
         final List<Tile> connectedAdjacentTiles = board.getConnectedAdjacentTiles(x, y);
         for (Tile connectedAdjacentTile : connectedAdjacentTiles) {
-            if (connectedTiles.contains(connectedAdjacentTile)) {
-                return;
-            }
             addAllConnectedTiles(board, connectedTiles, connectedAdjacentTile.getX(), connectedAdjacentTile.getY());
         }
     }

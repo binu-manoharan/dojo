@@ -70,7 +70,7 @@ class Player {
                     quests.stream().filter(quest -> quest.getPlayerId() == 0).collect(Collectors.toList()),
                     items.stream().filter(item -> item.getPlayerId() == 0).collect(Collectors.toList())
             );
-            breadthFirstTree.populateTreeFromRootNode(2);
+            breadthFirstTree.populateTreeFromRootNode(1);
 
             final long endTime = System.currentTimeMillis();
             System.err.println("Time taken: " + (endTime - startTime));

@@ -98,4 +98,24 @@ public class BoardTest {
             assertThat("Should be able to move up", movableDirections.contains(expectedDirection), is(true));
         }
     }
+
+    @Test
+    public void should_not_be_connected() throws Exception {
+        final String[] tileString = {
+                "0110 1010 0000 0000 0000 0000 0000",
+                "0111 1111 0000 0000 0000 0000 0000",
+                "0000 0000 0000 0000 0000 0000 0000",
+                "0000 0000 0000 0000 0000 0000 0000",
+                "0000 0000 0000 0000 0000 0000 0000",
+                "0000 0000 0000 0000 0000 0000 0000",
+                "0000 0000 0000 0000 0000 0000 0000"
+        };
+
+        final Board board = new Board(tileString);
+        assertThat(board.getConnectedAdjacentTiles(0, 0).isEmpty(), is(true));
+        assertThat(board.getConnectedAdjacentTiles(0, 1).size(), is(1));
+        assertThat(board.getConnectedAdjacentTiles(1, 0).size(), is(1));
+        assertThat(board.getConnectedAdjacentTiles(1, 1).size(), is(2));
+
+    }
 }
