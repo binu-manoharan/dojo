@@ -87,16 +87,28 @@ public class Board {
         final List<Direction> movableDirections = tiles[x][y].getMovableDirections();
         final ArrayList<Tile> connectedTiles = new ArrayList<>();
         if (movableDirections.contains(Direction.UP) && y > 0) {
-            connectedTiles.add(tiles[x][y - 1]);
+            final Tile adjacentTile = tiles[x][y - 1];
+            if (adjacentTile.getMovableDirections().contains(Direction.DOWN)) {
+                connectedTiles.add(adjacentTile);
+            }
         }
         if (movableDirections.contains(Direction.DOWN) && y < 6) {
-            connectedTiles.add(tiles[x][y + 1]);
+            final Tile adjacentTile = tiles[x][y + 1];
+            if (adjacentTile.getMovableDirections().contains(Direction.UP)) {
+                connectedTiles.add(adjacentTile);
+            }
         }
         if (movableDirections.contains(Direction.RIGHT) && x < 6) {
-            connectedTiles.add(tiles[x + 1][y]);
+            final Tile adjacentTile = tiles[x + 1][y];
+            if (adjacentTile.getMovableDirections().contains(Direction.LEFT)) {
+                connectedTiles.add(adjacentTile);
+            }
         }
         if (movableDirections.contains(Direction.LEFT) && x > 0) {
-            connectedTiles.add(tiles[x - 1][y]);
+            final Tile adjacentTile = tiles[x - 1][y];
+            if (adjacentTile.getMovableDirections().contains(Direction.RIGHT)) {
+                connectedTiles.add(adjacentTile);
+            }
         }
 
         return connectedTiles;
