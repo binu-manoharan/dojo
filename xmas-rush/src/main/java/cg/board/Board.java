@@ -6,6 +6,15 @@ package cg.board;
 public class Board {
     private Tile[][] tiles = new Tile[7][7];
 
+    public Board(Board board) {
+        final Tile[][] tiles = board.getTiles();
+        for (int y = 0; y < 7; y++) {
+            for (int x = 0; x < 7; x++) {
+                this.tiles[x][y] = new Tile(tiles[x][y]);
+            }
+        }
+    }
+
     public Board(String[] tileString) {
         assert tileString.length == 7;
 
