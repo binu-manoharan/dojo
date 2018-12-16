@@ -6,9 +6,16 @@ import cg.board.Tile;
  * Player on the board
  */
 public class Participant {
-    int x,y;
-    int numAvailableQuests;
-    Tile tileInHand;
+    private final int x,y;
+    private final int numAvailableQuests;
+    private final Tile tileInHand;
+
+    public Participant(Participant participant) {
+        x = participant.x;
+        y = participant.y;
+        numAvailableQuests = participant.numAvailableQuests;
+        tileInHand = participant.tileInHand;
+    }
 
     public Participant(int x, int y, int numAvailableQuests, Tile tileInHand) {
         this.x = x;
