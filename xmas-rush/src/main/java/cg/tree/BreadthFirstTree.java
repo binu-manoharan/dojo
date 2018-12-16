@@ -4,7 +4,6 @@ import cg.board.Board;
 import cg.element.Item;
 import cg.element.Participant;
 import cg.element.Quest;
-import cg.operation.Operation;
 import cg.operation.PushOperation;
 
 import java.util.List;
@@ -24,13 +23,19 @@ public class BreadthFirstTree {
         this.rootNode = new Node(new GameState(board, me, availableQuests, items), null);
     }
 
-    public void populateTree() {
+    public void populateTree(int depth) {
+        if (depth == 0) {
+            return;
+        }
+
         final List<PushOperation> allPushOperations = PushOperation.getAllPushOperations();
         for (PushOperation pushOperation : allPushOperations) {
             final GameState node = new GameState(rootNode.getGameState());
             node.push(pushOperation.getDirection(), pushOperation.getPushIndex());
             final Node child = new Node(node, pushOperation);
             rootNode.addChild(child);
+
+            populateTree(--depth);
         }
     }
 
