@@ -2,6 +2,9 @@ package cg.board;
 
 import cg.element.Direction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Game 7x7 board for xmas rush
  */
@@ -79,4 +82,24 @@ public class Board {
 
         return newTileInHand;
     }
+
+    public List<Tile> getConnectedAdjacentTiles(int x, int y) {
+        final List<Direction> movableDirections = tiles[x][y].getMovableDirections();
+        final ArrayList<Tile> connectedTiles = new ArrayList<>();
+        if (movableDirections.contains(Direction.UP) && y > 0) {
+            connectedTiles.add(tiles[x][y - 1]);
+        }
+        if (movableDirections.contains(Direction.DOWN) && y < 6) {
+            connectedTiles.add(tiles[x][y + 1]);
+        }
+        if (movableDirections.contains(Direction.RIGHT) && x < 6) {
+            connectedTiles.add(tiles[x + 1][y]);
+        }
+        if (movableDirections.contains(Direction.LEFT) && x > 0) {
+            connectedTiles.add(tiles[x - 1][y]);
+        }
+
+        return connectedTiles;
+    }
+
 }
