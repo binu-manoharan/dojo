@@ -24,6 +24,7 @@ public class BreadthFirstTreeTest {
 
         final Node rootNode = breadthFirstTree.getRootNode();
         final List<Node> children = rootNode.getChildren();
+        // TODO check tree structure.
         assertThat(children.size(), is(28));
     }
 
@@ -32,7 +33,7 @@ public class BreadthFirstTreeTest {
         final Tile myTile = new Tile(-1, -1, "1111");
         final Participant me = new Participant(0, 0, 1, myTile);
         final List<Quest> quests = singletonList(new Quest("DIAMOND", 0));
-        final List<Item> items = singletonList(new Item(0, -1, -1, "DIAMOND"));
+        final List<Item> items = singletonList(new Item(0, 1, 0, "DIAMOND"));
 
         final BreadthFirstTree breadthFirstTree = new BreadthFirstTree(getEmptyBoard(), me, quests, items);
         breadthFirstTree.populateTreeFromRootNode(2);
