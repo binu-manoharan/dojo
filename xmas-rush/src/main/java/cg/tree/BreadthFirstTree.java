@@ -23,19 +23,23 @@ public class BreadthFirstTree {
         this.rootNode = new Node(new GameState(board, me, availableQuests, items), null);
     }
 
-    public void populateTree(int depth) {
-        if (depth >= 0) {
+    public void populateTreeFromRootNode(int depth) {
+        populateTree(rootNode, depth);
+    }
+
+    private void populateTree(Node parentNode, int depth) {
+        if (depth <= 0) {
             return;
         }
 
         final List<PushOperation> allPushOperations = PushOperation.getAllPushOperations();
         for (PushOperation pushOperation : allPushOperations) {
-            final GameState node = new GameState(rootNode.getGameState());
+            final GameState node = new GameState(parentNode.getGameState());
             node.push(pushOperation.getDirection(), pushOperation.getPushIndex());
             final Node child = new Node(node, pushOperation);
-            rootNode.addChild(child);
+            parentNode.addChild(child);
 
-            populateTree(--depth);
+            populateTree(child, --depth);
         }
     }
 

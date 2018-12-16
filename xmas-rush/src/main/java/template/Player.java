@@ -64,7 +64,8 @@ class Player {
             }
 
             final BreadthFirstTree breadthFirstTree = new BreadthFirstTree(board, participants[0], quests, items);
-            breadthFirstTree.populateTree(1);
+            breadthFirstTree.populateTreeFromRootNode(2);
+
             final long endTime = System.currentTimeMillis();
             System.err.println("Time taken: " + (endTime - startTime));
 
