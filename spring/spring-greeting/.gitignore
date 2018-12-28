@@ -1,4 +1,7 @@
-.gradle/*
+**/.gradle/*
 .idea/*
 build/*
 out/*
+
+# build context is the docker folder so jar is placed here for now.
+src/main/docker/*.jar
