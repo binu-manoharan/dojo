@@ -4,8 +4,20 @@ fun greetingMessage(): String {
     return "hello world!"
 }
 
-fun maxIndexOf(elems: IntArray): Int? {
-    return elems.mapIndexed { index, elem -> Pair(index, elem)}
+fun maxIndexOf(elements: IntArray): Int? {
+    return elements.mapIndexed { index, elem -> Pair(index, elem)}
             .reversed()
             .maxBy { it.second }!!.first
+}
+
+
+fun runs(elements: IntArray): Int {
+    return elements.fold(intArrayOf(), {
+        acc, element ->
+            val elementToInsert: Int? = when (val size = acc.size) {
+                0 -> element
+                else -> if (acc[size - 1] != element) element else null
+            }
+            if (elementToInsert == null) acc else acc.plus(elementToInsert)
+    }).count()
 }

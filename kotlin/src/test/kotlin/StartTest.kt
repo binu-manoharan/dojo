@@ -24,4 +24,14 @@ class StartTest {
                 `is`(0)
         )
     }
+
+    @Test
+    internal fun should_return_of_the_number_of_run_sequence() {
+        val runs: Int = runs(intArrayOf(0, 0, 1, 1, 0)) // 3 runs - 1 run of 0 and then 1 and then 2
+        assertThat(
+                "There should be three runs",
+                runs,
+                `is`(3)
+        )
+    }
 }
