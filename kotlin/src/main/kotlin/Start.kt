@@ -21,3 +21,7 @@ fun runs(elements: IntArray): Int {
             if (elementToInsert == null) acc else acc.plus(elementToInsert)
     }).count()
 }
+
+fun isPalindrome(testString: String): Boolean {
+    return testString.reversed().equals(testString)
+}

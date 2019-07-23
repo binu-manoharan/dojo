@@ -34,4 +34,12 @@ class StartTest {
                 `is`(3)
         )
     }
+
+    @Test
+    internal fun should_return_right_results_for_palindrome_test() {
+        assertThat(isPalindrome("test"), `is`(false))
+        assertThat(isPalindrome("b"), `is`(true))
+        assertThat(isPalindrome("bob"), `is`(true))
+        assertThat(isPalindrome("malayalam"), `is`(true))
+    }
 }
