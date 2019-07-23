@@ -42,4 +42,12 @@ class StartTest {
         assertThat(isPalindrome("bob"), `is`(true))
         assertThat(isPalindrome("malayalam"), `is`(true))
     }
+
+    @Test
+    internal fun should_list_elements_without_a_pair() {
+        assertThat(findPairless(intArrayOf(1, 1, 2)), `is`(2))
+        assertThat(findPairless(intArrayOf(1, 2, 2)), `is`(1))
+        assertThat(findPairless(intArrayOf(2, 2, 2)), `is`(2))
+        assertThat(findPairless(intArrayOf(1, 2, 1, 2, 3)), `is`(3))
+    }
 }

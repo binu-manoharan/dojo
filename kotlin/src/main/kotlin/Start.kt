@@ -25,3 +25,7 @@ fun runs(elements: IntArray): Int {
 fun isPalindrome(testString: String): Boolean {
     return testString.reversed().equals(testString)
 }
+
+fun findPairless(elements: IntArray): Int {
+    return elements.reduce { a, b -> a xor b }
+}
