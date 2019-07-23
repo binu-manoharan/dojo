@@ -1,5 +1,7 @@
 package samples
 
+import java.util.*
+
 fun greetingMessage(): String {
     return "hello world!"
 }
@@ -28,4 +30,17 @@ fun isPalindrome(testString: String): Boolean {
 
 fun findPairless(elements: IntArray): Int {
     return elements.reduce { a, b -> a xor b }
+}
+
+fun sortDescending(): List<Int> {
+    val list = arrayListOf(1, 5, 2)
+    list.sortDescending()
+    Collections.sort(
+            list,
+            object: Comparator<Int> {
+                override fun compare(x: Int, y: Int): Int = y - x
+            }
+    )
+    list.sortWith(Comparator { x, y -> y - x })
+    return list.sortedDescending()
 }
