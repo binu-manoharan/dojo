@@ -37,5 +37,19 @@ class MyDateTest {
                 `is`(false)
         )
     }
+
+    @Test
+    internal fun should_have_a_rangeTo_function_in_my_date() {
+        MyDate(2019, 5, 5)..MyDate(2019, 5, 10)
+    }
+
+    @Test
+    internal fun should_iterate_over_my_dates() {
+        for ((index, date) in DateRange(MyDate(2019, 5, 1), MyDate(2019, 5, 10)).withIndex()) {
+            assertThat(date.year, `is`(2019))
+            assertThat(date.month, `is`(5))
+            assertThat(date.dayOfMonth, `is`(index + 1))
+        }
+    }
 }
 
