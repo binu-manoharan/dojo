@@ -11,20 +11,20 @@ data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int): Comparabl
 }
 
 class DateRange(override val start: MyDate, override val endInclusive: MyDate): ClosedRange<MyDate>, Iterable<MyDate> {
-    override fun iterator(): Iterator<MyDate> {
-        var current = start
+    override fun iterator(): Iterator<MyDate> = DateIterator(this)
+}
 
-        return object: Iterator<MyDate> {
-            override fun next(): MyDate {
-                val result = current
-                current = current.nextDay()
-                return result
-            }
+class DateIterator(val dateRange: DateRange): Iterator<MyDate> {
+    var current = dateRange.start
 
-            override fun hasNext(): Boolean {
-                return current <= endInclusive
-            }
-        }
+    override fun next(): MyDate {
+        val result = current
+        current = current.nextDay()
+        return result
+    }
+
+    override fun hasNext(): Boolean {
+        return current <= dateRange.endInclusive
     }
 }
 
