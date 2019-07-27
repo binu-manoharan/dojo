@@ -7,9 +7,16 @@ fun greetingMessage(): String {
 }
 
 fun maxIndexOf(elements: IntArray): Int? {
-    return elements.mapIndexed { index, elem -> Pair(index, elem)}
-            .reversed()
-            .maxBy { it.second }!!.first
+    return elements.withIndex().maxBy { it.value }?.index
+//    return elements.foldIndexed(0) { index, acc, element ->
+//        if (element > elements[acc])
+//            index
+//        else
+//            acc
+//    }
+//    return elements.mapIndexed { index, elem -> Pair(index, elem)}
+//            .reversed()
+//            .maxBy { it.second }!!.first
 }
 
 
