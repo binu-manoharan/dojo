@@ -60,4 +60,13 @@ class StartTest {
         assertThat(findPairless(intArrayOf(2, 2, 2)), `is`(2))
         assertThat(findPairless(intArrayOf(1, 2, 1, 2, 3)), `is`(3))
     }
+
+    @Test
+    internal fun should_give_closest_to_zero() {
+        assertThat(closestToZero(intArrayOf(1, 5, 10)), `is`(1))
+        assertThat(closestToZero(intArrayOf(-1, 5, 10)), `is`(-1))
+        assertThat(closestToZero(intArrayOf(-5, 1, 10)), `is`(1))
+        assertThat(closestToZero(intArrayOf(42, -5, 12, 21, 5, 24, -5)), `is`(5))
+        assertThat(closestToZero(intArrayOf()), `is`(0))
+    }
 }

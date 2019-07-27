@@ -51,3 +51,13 @@ fun sortDescending(): List<Int> {
     list.sortWith(Comparator { x, y -> y - x })
     return list.sortedDescending()
 }
+
+fun closestToZero(elements: IntArray): Int? {
+    return elements.map { Pair(it, Math.abs(it))}
+            .groupBy { it.second }
+            .minBy { it.key }
+            ?.value
+            ?.maxBy { it.first }
+            ?.first
+            ?: 0
+}
