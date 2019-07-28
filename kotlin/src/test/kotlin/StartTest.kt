@@ -1,7 +1,7 @@
 package samples
 
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.Test
 
 class StartTest {
@@ -68,5 +68,12 @@ class StartTest {
         assertThat(closestToZero(intArrayOf(-5, 1, 10)), `is`(1))
         assertThat(closestToZero(intArrayOf(42, -5, 12, 21, 5, 24, -5)), `is`(5))
         assertThat(closestToZero(intArrayOf()), `is`(0))
+    }
+
+    @Test
+    internal fun should_lead_thor_in_the_right_direction() {
+        val directions: List<String> = getDirectionsForThor(1, 1, 0, 0)
+        directions.forEach(::println)
+        assertThat(directions, contains("SE"))
     }
 }

@@ -61,3 +61,21 @@ fun closestToZero(elements: IntArray): Int? {
             ?.first
             ?: 0
 }
+
+
+// A single line providing the move to be made: N NE E SE S SW W or NW
+fun getDirectionsForThor(powerX: Int, powerY: Int, initThorX: Int, initThorY: Int): List<String> {
+    val ns: List<String> = if (powerY > initThorY) (initThorY until powerY).map { "S" } else (powerY downTo initThorY -1).map { "N" }
+    val we: List<String> = if (powerX > initThorX) (initThorX until powerX).map { "E" } else (powerX downTo initThorX -1).map { "W" }
+
+    if (ns.size > we.size) {
+        return ns.zip(we).map {it.first + it.second} + ns.subList(we.size - 1, ns.size - 1)
+    } else if (we.size > ns.size) {
+        return ns.zip(we).map {it.first + it.second} + we.subList(ns.size - 1, we.size - 1)
+    } else {
+        return ns.zip(we).map {it.first + it.second}
+    }
+}
+
+fun main(args: Array<String>) {
+}
