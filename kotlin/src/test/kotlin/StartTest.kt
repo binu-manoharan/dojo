@@ -72,8 +72,12 @@ class StartTest {
 
     @Test
     internal fun should_lead_thor_in_the_right_direction() {
-        val directions: List<String> = getDirectionsForThor(1, 1, 0, 0)
-        directions.forEach(::println)
-        assertThat(directions, contains("SE"))
+        assertThat(getDirectionsForThor(1, 1, 0, 0), contains("SE"))
+        assertThat(getDirectionsForThor(1, 0, 0, 0), contains("E"))
+        assertThat(getDirectionsForThor(0, 1, 0, 0), contains("S"))
+        assertThat(getDirectionsForThor(1, 5, 0, 0), contains("SE", "S", "S", "S", "S"))
+        assertThat(getDirectionsForThor(2, 2, 0, 0), contains("SE", "SE"))
+        assertThat(getDirectionsForThor(0, 2, 2, 0), contains("SW", "SW"))
+        assertThat(getDirectionsForThor(31, 4, 31, 6), contains("N", "N"))
     }
 }
