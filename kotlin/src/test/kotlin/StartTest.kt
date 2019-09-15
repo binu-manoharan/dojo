@@ -3,6 +3,7 @@ package samples
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.Test
+import kotlin.random.Random
 
 class StartTest {
     @Test
@@ -79,5 +80,6 @@ class StartTest {
         assertThat(getDirectionsForThor(2, 2, 0, 0), contains("SE", "SE"))
         assertThat(getDirectionsForThor(0, 2, 2, 0), contains("SW", "SW"))
         assertThat(getDirectionsForThor(31, 4, 31, 6), contains("N", "N"))
+        Random.nextInt(0,3)
     }
 }
